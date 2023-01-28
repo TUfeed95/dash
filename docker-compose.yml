@@ -1,0 +1,41 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "8080:80"
+    networks:
+      - internal
+    volumes:
+      - ./var/www/html:/var/www/html
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./var/log/nginx:/var/log/nginx/
+
+  php:
+    container_name: php
+    build:
+      context: ./config/php
+      dockerfile: Dockerfile
+    networks:
+      - internal
+    volumes:
+      - ./var/www/html:/var/www/html
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+
+  postgresql:
+    image: postgres:15
+    container_name: dash_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: dashboard_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --lc-collate=C --lc-ctype=C'
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    networks:
+      - internal
+
+networks:
+  internal:
