@@ -28,9 +28,9 @@ class Router
   }
 
   /**
-   * Генерирует регулярное выражение на основе предопределенного роутера.
+   * Генерирует регулярное выражение на основе переданного роутера.
    * 
-   * @param Route $route роутер
+   * @param $route роутер
    * @return string
    */
   private function generatePatternRouter($route) 

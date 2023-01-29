@@ -17,7 +17,7 @@ $router->controller();
 ?>
 
 <p><?
-$rout = '/hello/text/id=9';
+$rout = '/hello/text?id=9';
 
 $test = explode('/', trim($rout, '/'));
 print_r($test);
