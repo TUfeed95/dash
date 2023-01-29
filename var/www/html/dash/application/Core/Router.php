@@ -1,29 +1,43 @@
 <?php
-namespace Core;
+
+require_once 'Controller.php';
 
 class Router
 {
-  public function getRoute($routes, $uri)
+  private $routes;
+  private $uri;
+
+  public function __construct($routes, $uri)
+  {
+    $this->routes = $routes;
+    $this->uri = $uri;
+  }
+
+  public function controller()
   { 
-    foreach ($routes as $route) {
+    foreach ($this->routes as $route) {
       $pattern = self::generatePatternRouter($route);
-      if (preg_match($pattern, $uri, $matches)) {
-        
+      if (preg_match($pattern, $this->uri, $matches)) {
+        $controller = new Controller($route->controller, $route->action, $matches[3]);
+        $dispatcher = new Dispatcher($controller);
+        $dispatcher->getController();
+        return;
       }
     }
-    return '';
+    require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/404.php';
   }
 
   /**
-   * Генератор регулярного выражения из роутера
+   * Генерирует регулярное выражение на основе предопределенного роутера.
+   * 
+   * @param Route $route роутер
+   * @return string
    */
-  public function generatePatternRouter($route) 
+  private function generatePatternRouter($route) 
   {
     // TODO: Метод требует доработки для генерации более сложных выражений
 
-    // начало выражения
     $pattern = '/';
-    // слэш
     $seporator = '\/';
     // разбиваем роутер на фрагменты
     $fragments = explode('/', trim($route->path, '/'));

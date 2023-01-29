@@ -1,24 +1,10 @@
 <?php
-use Core\Controller;
-use Core\Views;
 
 class HelloController
 {
-  private $view;
-
-  public function __construct($view)
+  public function text($data)
   {
-    // путь до шаблонов
-    $this->view = new Views('../Views');
-  }
-  public function hello($text)
-  {
-    // формируем параметры
-    $params = [
-      ['title' => 'Hello', 'text' => 'Text'],
-      ['title' => 'Hello 1', 'text' => 'Text 1']
-    ];
-    // передаем парметры в шаблон
-    $this->view->render('hello.php', ['params' => $params]);
+    $param = $data;
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/application/templates/test.php';
   }
 }
