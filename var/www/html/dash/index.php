@@ -10,17 +10,5 @@ $routes = require $_SERVER['DOCUMENT_ROOT'] . '/application/config/routes.php';
 $uri = $_SERVER['REQUEST_URI'];
 
 $router = new Router($routes, $uri);
-
 $router->controller();
-// (\/hello\/text)\?(\w+=\w+)$
-
 ?>
-
-<p><?
-$param = parse_url('/hello/text?var=int&var=str');
-print_r($param['query']);
-$array = explode('&', $param['query']);
-echo '<br>';
-print_r($array);
-
-?></p>

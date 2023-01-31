@@ -3,7 +3,7 @@
 class ConfigurationDevelopment
 {
   /**
-   * Конфигураця подключения к тестовой базеданных postgresql
+   * Конфигураця подключения к тестовой базе данных postgresql
    * @var array
    */
   const database = [
@@ -12,4 +12,5 @@ class ConfigurationDevelopment
     'DB_NAME' => 'dashboard_db',
     'DB_HOST' => 'database_pg',
   ];
+
 }
