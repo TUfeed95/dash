@@ -71,7 +71,6 @@ class Migrations
     try{
       $stmt = $connection->prepare($query);
       $stmt->execute();
-      //echo "  => Запрос успешно выполнен." . PHP_EOL;
       return true;
     } catch (PDOException $e) {
       echo "  => Во время выполнения запроса произошла ошибка: " . $e->getMessage() . PHP_EOL;

@@ -14,7 +14,7 @@ try {
   $className = 'Command' . array_shift($argv);
   $funcName = array_shift($argv);
 
-  // получаем аргументы по шаблону: -d=2
+  // получаем аргументы по шаблону: --id=2
   foreach ($argv as $arguments) {
     preg_match('/^--(.+)=(.+)$/', $arguments, $matches);
     if (!empty($matches)) {
