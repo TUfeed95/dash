@@ -6,13 +6,13 @@ class Controller
 {
   private $name;
   private $action;
-  private $param;
+  private $params;
 
-  public function __construct($name, $action, array $param)
+  public function __construct($name, $action, array $params)
   {
     $this->name = $name;
     $this->action = $action;
-    $this->param = $param;
+    $this->params = $params;
   }
 
   public function __get($property)
