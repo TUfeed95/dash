@@ -1,11 +1,13 @@
 <?php
 
+require_once('../config/ConfigurationDevelopment.php');
+
 class Database
 {
-  const DB_USER = 'root';
-  const DB_USER_PASSWORD = 'root';
-  const DB_NAME = 'dashboard_db';
-  const DB_HOST = 'database_pg';
+  const DB_USER = ConfigurationDevelopment::database['DB_USER'];
+  const DB_USER_PASSWORD = ConfigurationDevelopment::database['root'];
+  const DB_NAME = ConfigurationDevelopment::database['dashboard_db'];
+  const DB_HOST = ConfigurationDevelopment::database['database_pg'];
 
   /**
    * Подключение к базе данных
