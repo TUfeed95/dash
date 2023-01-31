@@ -12,27 +12,15 @@ $uri = $_SERVER['REQUEST_URI'];
 $router = new Router($routes, $uri);
 
 $router->controller();
-
+// (\/hello\/text)\?(\w+=\w+)$
 
 ?>
 
 <p><?
-$rout = '/hello/text?id=9';
-
-$test = explode('/', trim($rout, '/'));
-print_r($test);
+$param = parse_url('/hello/text?var=int&var=str');
+print_r($param['query']);
+$array = explode('&', $param['query']);
 echo '<br>';
-$exp = parse_url($rout);
-print_r($exp);
-echo '<br>';
-print_r(explode('/', trim($exp['path'], '/')));
-
-if (key_exists('query', $exp)) {
-  print_r($exp['query']);
-} else {
-  print_r('Error');
-}
-
-
+print_r($array);
 
 ?></p>

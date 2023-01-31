@@ -4,6 +4,5 @@ require_once realpath(dirname(__DIR__) . '/Core/Route.php');
 
 
 return [
-  new Route('/hello/text?:var', 'hello', 'text'),
-  new Route('/test/hello/', 'test', 'hello'),
+  new Route('/hello/text?var=str&var=int', 'hello', 'text'),
 ];

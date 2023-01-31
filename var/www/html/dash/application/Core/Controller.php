@@ -8,7 +8,7 @@ class Controller
   private $action;
   private $param;
 
-  public function __construct($name, $action, $param)
+  public function __construct($name, $action, array $param)
   {
     $this->name = $name;
     $this->action = $action;
