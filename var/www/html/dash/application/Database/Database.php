@@ -5,9 +5,9 @@ require_once('../config/ConfigurationDevelopment.php');
 class Database
 {
   const DB_USER = ConfigurationDevelopment::database['DB_USER'];
-  const DB_USER_PASSWORD = ConfigurationDevelopment::database['root'];
-  const DB_NAME = ConfigurationDevelopment::database['dashboard_db'];
-  const DB_HOST = ConfigurationDevelopment::database['database_pg'];
+  const DB_USER_PASSWORD = ConfigurationDevelopment::database['DB_USER_PASSWORD'];
+  const DB_NAME = ConfigurationDevelopment::database['DB_NAME'];
+  const DB_HOST = ConfigurationDevelopment::database['DB_HOST'];
 
   /**
    * Подключение к базе данных
