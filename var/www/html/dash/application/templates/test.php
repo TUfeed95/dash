@@ -1,6 +1,6 @@
-<p>Тестирование:</p>
+<p>Тестирование: <? print_r($params) ?></p>
 
 <ul>
-  <li>var: <? echo $param['var'] ?></li>
-  <li>id: <? echo $param['id'] ?></li>
+  <li>var: <? echo $params['var'] ?></li>
+  <li>id: <? echo $params['id'] ?></li>
 </ul>

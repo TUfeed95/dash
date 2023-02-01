@@ -15,12 +15,12 @@ class Router
 
   public function controller()
   {
-    $params = [];
     foreach ($this->routes as $route) {
       $pattern = self::generatePatternRouter($route);
       if (preg_match($pattern, $this->uri, $matches)) {
         // парсим url, получаем из него парматры и передаем в класс контроллера
-        $params = self::arrayParams($this->uri);
+        $query = parse_url($this->uri);
+        parse_str($query['query'], $params);
         // создаем объект контроллера
         $controller = new Controller($route->controller, $route->action, $params);
         // передаем объект контроллера и создаем объект диспетчера в котором определяем класс контроллера
@@ -49,6 +49,7 @@ class Router
     $fragments = parse_url($route->path);
     $path = $fragments['path'];
     $query = $fragments['query'];
+    
     $params = explode('&', $query);
     $pattern .= '(' . str_replace('/', $seporator, $path) . ')' . '\?';
     foreach ($params as $param) {
@@ -58,7 +59,7 @@ class Router
             $pattern .= '(\w+=[0-9]+)&';
             break;
           case 'str':
-            $pattern .= '(\w+=\w+)&';
+            $pattern .= '(\w+=(.*[a-zA-z]+.*))&';
             break;
         }
       }
@@ -66,21 +67,5 @@ class Router
     // конец выражения
     $pattern = substr($pattern, 0, -1) .  '$/'; // substr($pattern, 0, -1) - удаляем последний символ "&" в строке
     return $pattern;
-  }
-
-  /**
-   * Массив с параметрами из url
-   * @param string $uri url переданный в адресную строку браузера
-   */
-  public function arrayParams($uri) 
-  {
-    $uriFragment = parse_url($uri); // парсим url
-    $params = explode('&', $uriFragment['query']); // разбиваем на пары
-    $arrayParams = [];
-    foreach ($params as $param) {
-      $itemParams = explode('=', $param);
-      $arrayParams[$itemParams[0]] = $itemParams[1]; // формируем массив: ключ => значение
-    }
-    return $arrayParams;
   }
 }
