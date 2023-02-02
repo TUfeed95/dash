@@ -4,9 +4,8 @@ class View
 {
   private $template;
   private $model;
-  private $controller;
 
-  public function __construct($template, $model, $controller)
+  public function __construct($template, $model)
   {
     $this->template = $template;
     $this->model = $model;
