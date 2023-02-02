@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Models/HelloModel.php';
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Models/HelloModel.php';
 
 class HelloController
 {
