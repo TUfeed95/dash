@@ -1,14 +1,12 @@
 <?php
 
-
-
 class Model
 {
-  private $param;
-  public $arguments;
-  public function __construct($param)
+  private $params;
+  
+  public function __construct($params)
   {
-    $this->param = $param;
+    $this->params = $params;
   }
 
 }

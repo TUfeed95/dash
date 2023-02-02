@@ -1,10 +1,13 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/Models/HelloModel.php';
+
 class HelloController
 {
   public function text($data)
   {
-    $params = $data;
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/application/templates/test.php';
+
+    $helloModel = new HelloModel();
+    $helloModel->message($data);    
   }
 }
