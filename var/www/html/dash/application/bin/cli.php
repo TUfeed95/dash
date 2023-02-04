@@ -1,5 +1,5 @@
 <?php
-require_once '../Exceptions/CliExeption.php';
+
 
 try {
   // удаляем первый аргумент командной строки

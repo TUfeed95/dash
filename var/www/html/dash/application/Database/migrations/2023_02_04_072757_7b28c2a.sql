@@ -1,0 +1,1 @@
+INSERT INTO users VALUES ('1', 'Крахмалев Виктор Сергеевич', 'TUfeed', '2729611Vk')

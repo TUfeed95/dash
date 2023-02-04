@@ -53,22 +53,18 @@ class CommandMigration
       foreach ($getMigrationFiles as $file) {
         // выпоняем миграции
         $query = file_get_contents(str_replace('\\', '/', realpath(dirname(__DIR__)) . '/Database/migrations/' . $file));
-  
         if ($migration->executeQuery($query)){
+          // сохраняем в таблицу
+          $query = "INSERT INTO " . $migration::TABLE_MIGRATION_VERSIONS . "(version) values ('" . $file . "')";
+          $migration->executeQuery($query);
           echo "  => " . $file . " ---> \033[32m ОК \033[0m" . PHP_EOL;
         } else {
           echo "  => " . $file . " ---> \033[31m ERROR \033[0m" . PHP_EOL;
         }
-          
-        // сохраняем в таблицу
-        $query = "INSERT INTO " . $migration::TABLE_MIGRATION_VERSIONS . "(version) values ('" . $file . "')";
-        $migration->executeQuery($query);
       }
       echo "Миграция завершена." . PHP_EOL;
     } else {
       echo "Миграции не найдены." . PHP_EOL;
     }
-    
-    
   }
 }
