@@ -1,6 +1,6 @@
 <?php
 
-require_once('../config/ConfigurationDevelopment.php');
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/config/ConfigurationDevelopment.php';
 
 class Database
 {

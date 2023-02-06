@@ -1,11 +1,18 @@
 <?php
+session_start();
+
+require_once realpath(dirname(__FILE__) . '/application/Database/Database.php');
+require_once realpath(dirname(__FILE__) . '/application/config/ConfigurationDevelopment.php');
+
 require_once realpath(dirname(__FILE__) . '/application/Core/Router.php');
 require_once realpath(dirname(__FILE__) . '/application/Core/Dispatcher.php');
 require_once realpath(dirname(__FILE__) . '/application/Core/Controller.php');
 
 require_once realpath(dirname(__FILE__) . '/application/Models/HelloModel.php');
+require_once realpath(dirname(__FILE__) . '/application/Models/UserModel.php');
 
 require_once realpath(dirname(__FILE__) . '/application/Views/HelloView.php');
+require_once realpath(dirname(__FILE__) . '/application/Views/LoginView.php');
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -16,4 +23,5 @@ $uri = $_SERVER['REQUEST_URI'];
 
 $router = new Router($routes, $uri);
 $router->controller();
+
 ?>

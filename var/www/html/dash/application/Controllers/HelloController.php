@@ -6,8 +6,7 @@ class HelloController
 {
   public function text($data)
   {
-
     $helloModel = new HelloModel();
-    $helloModel->message($data);    
+    $helloModel->message($data);
   }
 }
