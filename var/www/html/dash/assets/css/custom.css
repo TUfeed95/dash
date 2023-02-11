@@ -7,10 +7,6 @@
   border-color: #dc3545;
 }
 
-.active > .error-msg{
-  display: block;
-}
-
 .error p{
   display: none;
 }
