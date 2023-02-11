@@ -1,0 +1,16 @@
+.error-auth .error-msg{
+  color: #dc3545;
+  display: block;
+}
+
+.error-auth .form-control{
+  border-color: #dc3545;
+}
+
+.active > .error-msg{
+  display: block;
+}
+
+.error p{
+  display: none;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   <meta charset="UTF-8" />
@@ -10,9 +10,10 @@
   <link rel="shortcut icon" href="../../assets/images/logo/favicon.svg" type="image/x-icon" />
   <link rel="shortcut icon" href="../../assets/images/logo/favicon.png" type="image/png" />
 </head>
-<h1>Главная старница сайта!</h1>
 
 <body>
+  <h1>Главная страница сайта!</h1>
+  <p><? print_r($_SESSION); ?></p>
 </body>
 
 </html>
