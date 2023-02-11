@@ -7,7 +7,7 @@ const formAuthorization = document.getElementById('formAuthorization'); // фо�
 async function sendingAuthorizationData() 
 {
   let url = '/admin/login-form/'; // адрес авторизации пользователя
-  let formData = new FormData(formAuthorization); // данные с фформы
+  let formData = new FormData(formAuthorization); // данные с формы
 
   // отправляем запрос на сервер
   let response = await fetch(url, {
