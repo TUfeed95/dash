@@ -20,7 +20,7 @@
             <a href="index.html"><img src="../../assets/images/logo/logo.svg" alt="Logo" /></a>
           </div>
           <h1 class="auth-title">Регистрация</h1>
-          <p class="auth-subtitle mb-5">
+          <p class="auth-subtitle">
             Введите свои данные для регистрации на нашем веб-сайте.
           </p>
 
@@ -49,7 +49,7 @@
                 <i class="bi bi-shield-lock"></i>
               </div>
             </div>
-            <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
+            <button class="btn btn-primary btn-block btn-lg shadow-lg">
               Зарегистрироваться
             </button>
           </form>

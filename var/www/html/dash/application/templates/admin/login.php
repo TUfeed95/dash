@@ -21,10 +21,10 @@
             <a href="/"><img src="../../assets/images/logo/logo.svg" alt="Logo" /></a>
           </div>
           <h1 class="auth-title">Авторизация</h1>
-          <p class="auth-subtitle">
+          <p class="auth-subtitle mb-4">
             Войдите в систему, используя свои учетные данные.
           </p>
-          <form id="sendLoginUser" method="post">
+          <form id="formAuthorization" method="post">
             <div class="error">
               <p class="error-msg">Неверный логин или пароль</p>
             </div>
@@ -40,14 +40,8 @@
                 <i class="bi bi-shield-lock"></i>
               </div>
             </div>
-            <div class="form-check form-check-lg d-flex align-items-end">
-              <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault" />
-              <label class="form-check-label text-gray-600" for="flexCheckDefault">
-                Запомнить
-              </label>
-            </div>
 
-            <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">
+            <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg">
               Авторизоваться
             </button>
           </form>
@@ -67,7 +61,7 @@
       </div>
     </div>
   </div>
-  <script src="../../assets/js/loginUser.js"></script>
+  <script src="../../assets/js/authorization.js"></script>
   <script src="../../assets/js/app.js"></script>
   <script src="../../assets/js/bootstrap.js"></script>
 </body>
