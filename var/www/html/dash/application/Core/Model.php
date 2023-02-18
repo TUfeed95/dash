@@ -5,7 +5,7 @@ class Model
   /**
    * Имя таблицы
    */
-  protected $tableName;
+  protected string $tableName;
 
   /**
    * Возвращает одну запись из таблицы
@@ -23,8 +23,8 @@ class Model
     try {
       $stmt = $connection->prepare($query);
       $stmt->execute(['param' => $param]);
-    } catch (PDOException $exeption) {
-      echo "Произошла ошибка при выполнении запроса: " . $exeption->getMessage();
+    } catch (PDOException $exception) {
+      echo "Произошла ошибка при выполнении запроса: " . $exception->getMessage();
     }
     
     // если кол-во строк более 0 то возвращем в виде массива
@@ -42,18 +42,19 @@ class Model
     }
   }
 
-  /**
-   * Добавление записи в таблицу
-   * 
-   * @param string $tableName имя таблицы
-   * @param array $params ассоциативный массив где: key = имя колонки, а value = содержимое колонки
-   */
-  protected function addRecord($tableName, $params = [])
+    /**
+     * Добавление записи в таблицу
+     *
+     * @param string $tableName имя таблицы
+     * @param array $params ассоциативный массив где: key = имя колонки, а value = содержимое колонки
+     * @throws Exception
+     */
+  protected function addRecord(string $tableName, array $params): bool
   {
-    $connrection = Database::connection();
+    $connection = Database::connection();
 
-    $colums = [];
-    $prepareColums = [];
+    $columns = [];
+    $prepareColumns = [];
 
     // выбрасываем исключение, если массив не ассоциативный
     if (array_is_list($params)){
@@ -63,26 +64,26 @@ class Model
     // перебираем ключи массива, это нужно для того, что бы при построении запроса использовать их как
     // наименования колонок и псевдопеременные
     foreach ($params as $key => $value) {
-      $colums[] = $key;
-      $prepareColums[] = ':' . $key;
+      $columns[] = $key;
+      $prepareColumns[] = ':' . $key;
     }
 
     // преобразуем массивы ключей и псевдопеременных в строки
-    $columnNames = implode(',', $colums); // наименования колонок
-    $pseudoVariables = implode(',', $prepareColums); // псевдопеременные
+    $columnNames = implode(',', $columns); // наименования колонок
+    $pseudoVariables = implode(',', $prepareColumns); // псевдопеременные
 
     $query = "INSERT INTO " . $tableName . " (" . $columnNames . ") VALUES (" . $pseudoVariables . ")";
 
     try {
-      $stmt = $connrection->prepare($query);
+      $stmt = $connection->prepare($query);
       $stmt->execute($params);
 
-      $connrection = null;
+      $connection = null;
       $stmt = null;
 
       return true;
-    } catch (PDOException $exeption) {
-      echo "Произошла ошибка при выполнении запроса: " . $exeption->getMessage();
+    } catch (PDOException $exception) {
+      echo "Произошла ошибка при выполнении запроса: " . $exception->getMessage();
       return false;
     }
 

@@ -9,15 +9,16 @@ async function sendingRegistrationData()
   let password = document.getElementById('password');
   let confirmPassword = document.getElementById('confirm-password');
 
+  // подтверждение пароля
   if (password.value === confirmPassword.value) {
     let response = await fetch(url, {
       method: 'POST',
       body: formData,
     });
-    
+
     if (response.ok) {
-      res = await response.json();
-      
+      let res = await response.json();
+
     } else {
       console.log('Произошла ошибка запроса на сервер: ' + response.statusText);
     }

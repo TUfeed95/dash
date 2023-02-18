@@ -3,7 +3,7 @@
 class UserModel extends Model
 {
 
-  private function tableName()
+  private function tableName(): string
   {
     $this->tableName = 'users';
     return $this->tableName;
@@ -12,11 +12,11 @@ class UserModel extends Model
   /**
    * Авторизация пользователя
    * 
-   * @param mixed $login
-   * @param mixed $password
+   * @param string $login
+   * @param string $password
    * @return bool
    */
-  public function authorizationUser($login, $password)
+  public function authorizationUser(string $login, string $password): bool
   {
 
     $user = self::getOneRecord(self::tableName(), 'login', $login);
@@ -33,14 +33,15 @@ class UserModel extends Model
     }
   }
 
-  /**
-   * Регистрация пользователя
-   * 
-   * @param string $email
-   * @param string $login
-   * @param string $password
-   */
-  public function registrationUser($email, $login, $password)
+    /**
+     * Регистрация пользователя
+     *
+     * @param string $email
+     * @param string $login
+     * @param string $password
+     * @throws Exception
+     */
+  public function registrationUser(string $email, string $login, string $password): array
   {
     $user = self::getOneRecord(self::tableName(), 'email', $email);
     
@@ -48,7 +49,7 @@ class UserModel extends Model
 
     if ($user) {
       $result['email'] = true;
-      $result['login'] = $user['login'] == $login ? true : false;
+      $result['login'] = $user['login'] == $login;
       $result['status'] = false;
       return $result;
     }
