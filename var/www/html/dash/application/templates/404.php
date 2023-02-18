@@ -29,7 +29,7 @@
               alt="Not Found"/>
             <h1 class="error-title">Упс!</h1>
             <p class="fs-5 text-gray-600">
-            Страница, которую вы ищете, не найдена.
+            Страница <? print_r($query['path']); ?> которую вы ищете, не найдена.
             </p>
             <a href="/" class="btn btn-lg btn-outline-primary mt-3">На главную</a>
           </div>

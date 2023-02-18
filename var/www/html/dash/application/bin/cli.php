@@ -7,11 +7,14 @@ try {
 
   // автоматически загружаем классы из директории Commands
   spl_autoload_register(function ($className) {
+    echo 'Autoload: ' . $className . PHP_EOL;
     require_once '../Commands/' . $className . '.php';
+    
   });
 
   // получаем наименование класса и метода
-  $className = 'Command' . array_shift($argv);
+  $className = 'Command' . ucfirst(array_shift($argv));
+  
   $funcName = array_shift($argv);
 
   // получаем аргументы по шаблону: --id=2

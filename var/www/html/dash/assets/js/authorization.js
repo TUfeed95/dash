@@ -21,11 +21,9 @@ async function sendingAuthorizationData()
   } else {
     formAuthorization.classList.add('error-auth');
   }
-
 }
 
 formAuthorization.addEventListener('submit', (event) => {
-  // отключаем перезагрузку страницы во время отправки данных на сервер
   event.preventDefault();
   sendingAuthorizationData();
 });

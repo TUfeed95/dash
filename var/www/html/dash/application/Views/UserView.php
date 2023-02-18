@@ -14,10 +14,8 @@ class UserView
 
   public function render($model)
   {
-    if ($model) {
-      http_response_code();
-    } else {
-      http_response_code(403);
-    }
+    header('Content-Type: application/json');
+    
+    echo json_encode($model);
   }
 }

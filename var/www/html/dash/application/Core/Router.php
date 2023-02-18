@@ -49,7 +49,7 @@ class Router
    * @param $route роутер
    * @return string
    */
-  private function generatePatternRouter($route) 
+  private function generatePatternRouter($route)
   {
     $seporator = '\/';
     // разбиваем роутер на фрагменты

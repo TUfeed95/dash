@@ -24,7 +24,7 @@
             Введите свои данные для регистрации на нашем веб-сайте.
           </p>
 
-          <form method="post" action="/admin/register-form/">
+          <form id="formRegistration" method="post" action="/admin/register-form/">
             <div class="form-group position-relative has-icon-left mb-4">
               <input type="text" name="email" id="email" class="form-control form-control-xl" placeholder="E-mail" />
               <div class="form-control-icon">
@@ -66,6 +66,9 @@
       </div>
     </div>
   </div>
+  <script src="../../assets/js/registration.js"></script>
+  <script src="../../assets/js/app.js"></script>
+  <script src="../../assets/js/bootstrap.js"></script>
 </body>
 
 </html>

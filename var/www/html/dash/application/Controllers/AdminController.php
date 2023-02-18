@@ -2,29 +2,46 @@
 
 class AdminController
 {
+  /**
+   * Страница авторизации пользователя
+   */
   public function login()
   {
     (new UserView())->loginTemplate();
   }
 
+  /**
+   * Страница регистрации пользователя
+   */
   public function register()
   {
     (new UserView())->registerTemplate();
   }
 
-  public function loginForm()
+  /**
+   * Получаем данные авторизации с фронта, 
+   * далее передаем их в модель, из модели получаем ответ о правильности данных и передаем его в представление.
+   * 
+   */
+  public function authorizationData()
   {
-    $login = $_POST['login'];
-    $password = $_POST['password'];
+    // получаем данные из фронта, через fetch  запрос
+    $login = htmlspecialchars($_POST['login']);
+    $password = htmlspecialchars($_POST['password']);
 
     $model = new UserModel();
-
     $view = new UserView();
-    $authResponse = $model->authUser($login, $password);
-    $view->render($authResponse);
+
+    $isAuthorization = $model->authorizationUser($login, $password); // проверка правильности данных авторизации
+    $view->render($isAuthorization); // передаем ответ в представление
   }
 
-  public function registerForm()
+  /**
+   * Получаем данные регистрации с фронта, 
+   * далее передаем их в модель, из модели получаем ответ о статусе регистрации (успех/не успех) данных и передаем его в представление.
+   * 
+   */
+  public function registrationData()
   {
     $email = htmlspecialchars($_POST['email']);
     $login = htmlspecialchars($_POST['login']);
@@ -32,5 +49,8 @@ class AdminController
 
     $model = new UserModel();
     $view = new UserView();
+
+    $isRegistration = $model->registrationUser($email, $login, $password);
+    $view->render($isRegistration);
   }
 }
