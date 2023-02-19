@@ -1,8 +1,16 @@
 <?php
 
+/**
+ * Класс модели пользователя.
+ */
 class UserModel extends Model
 {
 
+  /**
+   * Имя таблицы
+   *
+   * @return string
+   */
   private function tableName(): string
   {
     $this->tableName = 'users';
@@ -14,9 +22,9 @@ class UserModel extends Model
    * 
    * @param string $login
    * @param string $password
-   * @return bool
+   * @return array
    */
-  public function authorizationUser(string $login, string $password): bool
+  public function authorizationUser(string $login, string $password): array
   {
     $user = self::getOneRecord(self::tableName(), 'login', $login);
 
@@ -25,10 +33,9 @@ class UserModel extends Model
       // сохраняем данные в сессию
       $_SESSION['user_id'] = $user['id']; // id пользователя, потом понядобиться для организации метода currentUser
       $_SESSION['auth'] = true; // пользователь авторизован
-      return true;
-
+      return ['status' => true];
     } else {
-      return false;
+      return ['status' => false];
     }
 
   }
@@ -53,7 +60,6 @@ class UserModel extends Model
     if ($checkEmail) {
       return ['email' => true];
     }
-
     $result['email'] = false;
 
     $checkLogin = self::getOneRecord(self::tableName(), 'login', $login);
@@ -61,24 +67,15 @@ class UserModel extends Model
     if ($checkLogin) {
       return ['login' => true];
     }
-
     $result['login'] = false;
 
     // ключи должны соотвествовать именам колонок  в таблице
-    $params = [
+    $result['status'] = self::addRecord($this->tableName(), [
       'login' => $login,
       'password' => $password,
       'email' => $email,
-    ];
-
-    if (self::addRecord($this->tableName(), $params))
-    {
-      $result['status'] = true;
-    } else {
-      $result['status'] = false;
-    }
+      ]);
 
     return $result;
-
   }
 }

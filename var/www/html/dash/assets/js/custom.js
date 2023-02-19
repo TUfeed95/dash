@@ -1,4 +1,5 @@
-const formRegistration = document.getElementById('formRegistration'); // форма
+const formRegistration = document.getElementById('formRegistration'); // форма регистрации
+const formAuthorization = document.getElementById('formAuthorization'); // форма авторизации
 
 /**
  * Отправка формы регистрации
@@ -71,6 +72,39 @@ function messageForForm(message)
   formRegistration.prepend(div);
 
 }
+
+/**
+ * Авторизация пользователя
+ *
+ */
+async function sendingAuthorizationData()
+{
+  let url = '/admin/login-form/'; // адрес авторизации пользователя
+  let formData = new FormData(formAuthorization); // данные с формы
+
+  // отправляем запрос на сервер
+  let response = await fetch(url, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (response.ok){
+    let res = await response.json();
+    if (res['status']) {
+      window.location.href = '/';
+    } else {
+      messageForForm('Логин или пароль неверные');
+    }
+  } else {
+    console.log('Произошла ошибка запроса на сервер: ' + response.statusText);
+  }
+}
+
+formAuthorization.addEventListener('submit', (event) => {
+  event.preventDefault();
+  messageErrorClear();
+  sendingAuthorizationData();
+});
 
 formRegistration.addEventListener('submit', (event) => {
   event.preventDefault();

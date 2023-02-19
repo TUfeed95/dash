@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Класс пользователя
+ */
 class User
 {
   /**
@@ -37,5 +40,14 @@ class User
   public function getLogin(): string
   {
     return $this->login;
+  }
+
+  /**
+   * Текущий пользователь
+   *
+   */
+  public function currentUser($id)
+  {
+    return $id;
   }
 }
