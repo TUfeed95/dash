@@ -1,5 +1,13 @@
-const formRegistration = document.getElementById('formRegistration'); // форма регистрации
-const formAuthorization = document.getElementById('formAuthorization'); // форма авторизации
+/**
+ * Элемент, формы регистрации
+ * @type {HTMLElement}
+ */
+const formRegistration = document.getElementById('formRegistration');
+/**
+ *  Элемент, формы авторизации
+ * @type {HTMLElement}
+ */
+const formAuthorization = document.getElementById('formAuthorization');
 
 /**
  * Отправка формы регистрации
@@ -10,7 +18,7 @@ async function sendingRegistrationData()
 {
   let url = '/admin/register-form/';
   let formData = new FormData(formRegistration);
-  // поле подтверждения пароля отправлять не нужно, проверятся сразу на фронте.
+  // поле подтверждения, пароль отправлять не нужно, проверяeтся сразу на фронте.
   formData.delete('confirm-password');
 
   let password = document.getElementById('password');
@@ -26,11 +34,11 @@ async function sendingRegistrationData()
     if (response.ok) {
       let res = await response.json();
       if (res['email']) {
-        messageForForm('Электронный адрес занят');
+        messageForForm(formRegistration,'Электронный адрес занят');
       }
 
       if (res['login']) {
-        messageForForm('Логин занят');
+        messageForForm(formRegistration,'Логин занят');
       }
 
     } else {
@@ -38,7 +46,7 @@ async function sendingRegistrationData()
     }
 
   } else {
-    messageForForm('Пароли не совпадают');
+    messageForForm(formRegistration,'Пароли не совпадают');
   }
 
 }
@@ -54,9 +62,10 @@ function messageErrorClear()
 /**
  * Выводим блок с сообщением для формы.
  *
+ * @param elementForm
  * @param message
  */
-function messageForForm(message)
+function messageForForm(elementForm, message)
 {
 
   let div = document.createElement('div');
@@ -69,7 +78,7 @@ function messageForForm(message)
 
   div.append(text);
 
-  formRegistration.prepend(div);
+  elementForm.prepend(div);
 
 }
 
@@ -93,21 +102,25 @@ async function sendingAuthorizationData()
     if (res['status']) {
       window.location.href = '/';
     } else {
-      messageForForm('Логин или пароль неверные');
+      messageForForm(formAuthorization,'Логин или пароль неверные');
     }
   } else {
     console.log('Произошла ошибка запроса на сервер: ' + response.statusText);
   }
 }
 
-formAuthorization.addEventListener('submit', (event) => {
-  event.preventDefault();
-  messageErrorClear();
-  sendingAuthorizationData();
-});
+if (formRegistration != null) {
+  formRegistration.addEventListener('submit', (event) => {
+    event.preventDefault();
+    messageErrorClear();
+    sendingRegistrationData();
+  });
+}
 
-formRegistration.addEventListener('submit', (event) => {
-  event.preventDefault();
-  messageErrorClear();
-  sendingRegistrationData();
-});
+if (formAuthorization != null) {
+  formAuthorization.addEventListener('submit', (event) => {
+    event.preventDefault();
+    messageErrorClear();
+    sendingAuthorizationData();
+  });
+}

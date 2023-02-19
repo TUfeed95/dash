@@ -31,7 +31,7 @@ class UserModel extends Model
     // если пользователь найден по логину, проверяем пароль
     if ($user && $user['password'] == $password) {
       // сохраняем данные в сессию
-      $_SESSION['user_id'] = $user['id']; // id пользователя, потом понядобиться для организации метода currentUser
+      $_SESSION['user_id'] = $user['id'];
       $_SESSION['auth'] = true; // пользователь авторизован
       return ['status' => true];
     } else {
@@ -51,11 +51,12 @@ class UserModel extends Model
      */
   public function registrationUser(string $email, string $login, string $password): array
   {
+    // результат и ответ для запроса с фронта
+    $result = [];
+
     // что бы понять свободен ли e-mail, ищем пользователей у кого есть такой адрес
     // если пользователь не найден то и e-mail свободен
     $checkEmail = self::getOneRecord(self::tableName(), 'email', $email);
-
-    $result = [];
 
     if ($checkEmail) {
       return ['email' => true];
