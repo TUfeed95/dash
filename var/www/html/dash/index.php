@@ -12,6 +12,10 @@ require_once realpath(dirname(__FILE__) . '/application/Models/UserModel.php');
 
 require_once realpath(dirname(__FILE__) . '/application/Views/UserView.php');
 
+require_once realpath(dirname(__FILE__) . '/application/Modules/user/User.php');
+
+
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -21,5 +25,3 @@ $uri = $_SERVER['REQUEST_URI'];
 
 $router = new Router($routes, $uri);
 $router->controller();
-
-?>

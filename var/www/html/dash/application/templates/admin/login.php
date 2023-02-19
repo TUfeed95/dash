@@ -25,17 +25,14 @@
             Войдите в систему, используя свои учетные данные.
           </p>
           <form id="formAuthorization" method="post">
-            <div class="error">
-              <p class="error-msg">Неверный логин или пароль</p>
-            </div>
             <div class="form-group position-relative has-icon-left mb-4">
-              <input type="text" id="login" name="login" class="form-control form-control-xl" placeholder="Логин" />
+              <input type="text" id="login" name="login" class="form-control form-control-xl" placeholder="Логин" required/>
               <div class="form-control-icon">
                 <i class="bi bi-person"></i>
               </div>
             </div>
             <div class="form-group position-relative has-icon-left mb-4">
-              <input type="password" id="password" name="password" class="form-control form-control-xl" placeholder="Пароль" />
+              <input type="password" id="password" name="password" class="form-control form-control-xl" placeholder="Пароль" required/>
               <div class="form-control-icon">
                 <i class="bi bi-shield-lock"></i>
               </div>

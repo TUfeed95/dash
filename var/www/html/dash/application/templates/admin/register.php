@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Регистрация</title>
+  <link rel="stylesheet" href="../../assets/css/custom.css" />
   <link rel="stylesheet" href="../../assets/css/main/app.css" />
   <link rel="stylesheet" href="../../assets/css/pages/auth.css" />
   <link rel="shortcut icon" href="../../assets/images/logo/favicon.svg" type="image/x-icon" />
@@ -26,25 +27,25 @@
 
           <form id="formRegistration" method="post" action="/admin/register-form/">
             <div class="form-group position-relative has-icon-left mb-4">
-              <input type="text" name="email" id="email" class="form-control form-control-xl" placeholder="E-mail" />
+              <input type="text" name="email" id="email" class="form-control form-control-xl" placeholder="E-mail" required/>
               <div class="form-control-icon">
                 <i class="bi bi-envelope"></i>
               </div>
             </div>
             <div class="form-group position-relative has-icon-left mb-4">
-              <input type="text" name="login" id="login" class="form-control form-control-xl" placeholder="Логин" />
+              <input type="text" name="login" id="login" class="form-control form-control-xl" placeholder="Логин" required/>
               <div class="form-control-icon">
                 <i class="bi bi-person"></i>
               </div>
             </div>
             <div class="form-group position-relative has-icon-left mb-4">
-              <input type="password" name="password" id="password" class="form-control form-control-xl" placeholder="Пароль" />
+              <input type="password" name="password" id="password" class="form-control form-control-xl" placeholder="Пароль" required/>
               <div class="form-control-icon">
                 <i class="bi bi-shield-lock"></i>
               </div>
             </div>
             <div class="form-group position-relative has-icon-left mb-4">
-              <input type="password" name="confirm-password" id="confirm-password" class="form-control form-control-xl" placeholder="Подтвердите пароль" />
+              <input type="password" name="confirm-password" id="confirm-password" class="form-control form-control-xl" placeholder="Подтвердите пароль" required/>
               <div class="form-control-icon">
                 <i class="bi bi-shield-lock"></i>
               </div>

@@ -5,7 +5,7 @@ class AdminController
   /**
    * Страница авторизации пользователя
    */
-  public function login()
+  public function login(): void
   {
     (new UserView())->loginTemplate();
   }
@@ -13,7 +13,7 @@ class AdminController
   /**
    * Страница регистрации пользователя
    */
-  public function register()
+  public function register(): void
   {
     (new UserView())->registerTemplate();
   }
@@ -23,7 +23,7 @@ class AdminController
    * далее передаем их в модель, из модели получаем ответ о правильности данных и передаем его в представление.
    * 
    */
-  public function authorizationData()
+  public function authorizationData(): void
   {
     // получаем данные из фронта, через fetch  запрос
     $login = htmlspecialchars($_POST['login']);
@@ -37,11 +37,12 @@ class AdminController
   }
 
   /**
-   * Получаем данные регистрации с фронта, 
+   * Получаем данные регистрации с фронта,
    * далее передаем их в модель, из модели получаем ответ о статусе регистрации (успех/не успех) данных и передаем его в представление.
-   * 
+   *
+   * @throws Exception
    */
-  public function registrationData()
+  public function registrationData(): void
   {
     $email = htmlspecialchars($_POST['email']);
     $login = htmlspecialchars($_POST['login']);
