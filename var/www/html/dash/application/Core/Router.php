@@ -46,16 +46,15 @@ class Router
   /**
    * Генерирует регулярное выражение на основе переданного роутера.
    * 
-   * @param $route роутер
+   * @param $route
    * @return string
    */
-  private function generatePatternRouter($route)
+  private function generatePatternRouter($route): string
   {
-    $seporator = '\/';
+    $separator = '\/';
     // разбиваем роутер на фрагменты
     $fragments = parse_url($route->path);
     $path = $fragments['path'];
-    $pattern = '/(' . str_replace('/', $seporator, $path) . ')$/';
-    return $pattern;
+    return '/(' . str_replace('/', $separator, $path) . ')$/';
   }
 }

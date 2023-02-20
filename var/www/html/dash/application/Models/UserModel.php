@@ -26,6 +26,7 @@ class UserModel extends Model
    */
   public function authorizationUser(string $login, string $password): array
   {
+
     $user = self::getOneRecord(self::tableName(), 'login', $login);
 
     // если пользователь найден по логину, проверяем пароль

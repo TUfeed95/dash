@@ -2,18 +2,12 @@
 
 class View
 {
-  private $template;
-  private $model;
-
-  public function __construct($template, $model)
+  protected function generateCSRFToken(): void
   {
-    $this->template = $template;
-    $this->model = $model;
-  }
-
-  public function render($template, $model)
-  {
-    $data = $this->model->param;
-    require_once $this->template;
+    try {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(35));
+    } catch (Exception $e) {
+      echo "Произошла ошибка при генерации csrf-токена.";
+    }
   }
 }

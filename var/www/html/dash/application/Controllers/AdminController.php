@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Tool/Tool.php';
+
 class AdminController
 {
   /**
@@ -25,6 +27,8 @@ class AdminController
    */
   public function authorizationData(): void
   {
+    Tool::checkCsrfToken(htmlspecialchars($_POST['token']));
+
     // получаем данные из фронта, через fetch  запрос
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['password']);
@@ -37,13 +41,15 @@ class AdminController
   }
 
   /**
-   * Получаем данные регистрации с фронта,
-   * далее передаем их в модель, из модели получаем ответ о статусе регистрации (успех/не успех) данных и передаем его в представление.
+   * Получаем данные регистрации с фронта, далее передаем их в модель,
+   * из модели получаем ответ о статусе регистрации (успех/неудача) данных и передаем его в представление.
    *
    * @throws Exception
    */
   public function registrationData(): void
   {
+    Tool::checkCsrfToken(htmlspecialchars($_POST['token']));
+
     $email = htmlspecialchars($_POST['email']);
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['password']);
@@ -54,4 +60,5 @@ class AdminController
     $isRegistration = $model->registrationUser($email, $login, $password);
     $view->render($isRegistration);
   }
+
 }

@@ -37,7 +37,7 @@
                 <i class="bi bi-shield-lock"></i>
               </div>
             </div>
-
+            <input type="hidden" name="token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
             <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg">
               Авторизоваться
             </button>

@@ -24,7 +24,6 @@
           <p class="auth-subtitle">
             Введите свои данные для регистрации на нашем веб-сайте.
           </p>
-
           <form id="formRegistration" method="post" action="/admin/register-form/">
             <div class="form-group position-relative has-icon-left mb-4">
               <input type="text" name="email" id="email" class="form-control form-control-xl" placeholder="E-mail" required/>
@@ -50,6 +49,7 @@
                 <i class="bi bi-shield-lock"></i>
               </div>
             </div>
+            <input type="hidden" name="token" value="232323">
             <button class="btn btn-primary btn-block btn-lg shadow-lg">
               Зарегистрироваться
             </button>
@@ -57,7 +57,7 @@
           <div class="text-center mt-5 text-lg fs-4">
             <p class="text-gray-600">
               У вас уже есть учетная запись?
-              <a href="/admin/login/" class="font-bold">Авторизоваться</a>.
+              <a href="/admin/login/" class="font-bold">Авторизоваться</a>
             </p>
           </div>
         </div>
