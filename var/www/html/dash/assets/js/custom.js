@@ -25,14 +25,11 @@ async function sendingRegistrationData()
     return;
   }
 
-  // поле подтверждения, пароль отправлять не нужно, проверяeтся сразу на фронте.
-  formData.delete('confirm-password');
-
-  let password = document.getElementById('password');
-  let confirmPassword = document.getElementById('confirm-password');
-
   // подтверждение пароля
-  if (password.value === confirmPassword.value) {
+  if (formData.get('password') === formData.get('confirm-password')) {
+    // поле подтверждения, пароль отправлять не нужно, проверяeтся сразу на фронте.
+    formData.delete('confirm-password');
+
     let response = await fetch(url, {
       method: 'POST',
       body: formData,
