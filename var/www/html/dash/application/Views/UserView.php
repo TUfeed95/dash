@@ -2,19 +2,14 @@
 
 class UserView extends View
 {
-  public function loginTemplate(): void
+
+  public function render($template)
   {
     $this->generateCSRFToken();
-    require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/admin/login.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $template;
   }
 
-  public function registerTemplate(): void
-  {
-    $this->generateCSRFToken();
-    require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/admin/register.php';
-  }
-
-  public function render($model): void
+  public function response($model): void
   {
     header('Content-Type: application/json');
     

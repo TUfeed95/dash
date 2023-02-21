@@ -18,6 +18,13 @@ async function sendingRegistrationData()
 {
   let url = '/admin/register-form/';
   let formData = new FormData(formRegistration);
+
+  // проверка валидности введенного e-mail
+  if (!validateEmail(formData.get('email'))) {
+    messageForForm(formRegistration, 'Введите корректный E-mail.');
+    return;
+  }
+
   // поле подтверждения, пароль отправлять не нужно, проверяeтся сразу на фронте.
   formData.delete('confirm-password');
 
@@ -49,6 +56,32 @@ async function sendingRegistrationData()
     messageForForm(formRegistration,'Пароли не совпадают');
   }
 
+}
+
+/**
+ * Авторизация пользователя
+ *
+ */
+async function sendingAuthorizationData()
+{
+  let url = '/admin/login-form/'; // адрес авторизации пользователя
+  let formData = new FormData(formAuthorization); // данные с формы
+  // отправляем запрос на сервер
+  let response = await fetch(url, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (response.ok){
+    let res = await response.json();
+    if (res['status']) {
+      window.location.href = '/';
+    } else {
+      messageForForm(formAuthorization,'Неверный логин или пароль.');
+    }
+  } else {
+    console.log('Произошла ошибка запроса на сервер: ' + response.statusText);
+  }
 }
 
 function messageErrorClear()
@@ -83,30 +116,13 @@ function messageForForm(elementForm, message)
 }
 
 /**
- * Авторизация пользователя
- *
+ * Валидация e-mail
+ * @param email
  */
-async function sendingAuthorizationData()
+function validateEmail(email)
 {
-  let url = '/admin/login-form/'; // адрес авторизации пользователя
-  let formData = new FormData(formAuthorization); // данные с формы
-
-  // отправляем запрос на сервер
-  let response = await fetch(url, {
-    method: 'POST',
-    body: formData,
-  });
-
-  if (response.ok){
-    let res = await response.json();
-    if (res['status']) {
-      window.location.href = '/';
-    } else {
-      messageForForm(formAuthorization,'Логин или пароль неверные');
-    }
-  } else {
-    console.log('Произошла ошибка запроса на сервер: ' + response.statusText);
-  }
+  let pattern = /^[\w%.\-+]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/i;
+  return pattern.test(String(email));
 }
 
 if (formRegistration != null) {

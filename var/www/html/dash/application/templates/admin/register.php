@@ -49,7 +49,7 @@
                 <i class="bi bi-shield-lock"></i>
               </div>
             </div>
-            <input type="hidden" name="token" value="232323">
+            <input type="hidden" name="token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
             <button class="btn btn-primary btn-block btn-lg shadow-lg">
               Зарегистрироваться
             </button>

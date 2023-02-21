@@ -9,7 +9,8 @@ class AdminController
    */
   public function login(): void
   {
-    (new UserView())->loginTemplate();
+    //(new UserView())->loginTemplate();
+    (new UserView())->render('admin/login.php');
   }
 
   /**
@@ -17,7 +18,8 @@ class AdminController
    */
   public function register(): void
   {
-    (new UserView())->registerTemplate();
+    (new UserView())->render('admin/register.php');
+    //(new UserView())->registerTemplate();
   }
 
   /**
@@ -37,7 +39,7 @@ class AdminController
     $view = new UserView();
 
     $isAuthorization = $model->authorizationUser($login, $password); // проверка правильности данных авторизации
-    $view->render($isAuthorization); // передаем ответ в представление
+    $view->response($isAuthorization); // передаем ответ в представление
   }
 
   /**
@@ -58,7 +60,7 @@ class AdminController
     $view = new UserView();
 
     $isRegistration = $model->registrationUser($email, $login, $password);
-    $view->render($isRegistration);
+    $view->response($isRegistration);
   }
 
 }
