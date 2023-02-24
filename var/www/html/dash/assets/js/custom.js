@@ -27,7 +27,7 @@ async function sendingRegistrationData()
 
   // подтверждение пароля
   if (formData.get('password') === formData.get('confirm-password')) {
-    // поле подтверждения пароля отправлять не нужно, проверяeтся сразу на фронте.
+    // поле подтверждения пароля отправлять не нужно
     formData.delete('confirm-password');
 
     let response = await fetch(url, {
