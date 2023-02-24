@@ -37,12 +37,13 @@ async function sendingRegistrationData()
 
     if (response.ok) {
       let res = await response.json();
+
       if (res['email']) {
         messageForForm(formRegistration,'Электронный адрес занят');
-      }
-
-      if (res['login']) {
+      } else if (res['login']) {
         messageForForm(formRegistration,'Логин занят');
+      } else {
+        window.location.href = '/admin/login/';
       }
 
     } else {
@@ -72,7 +73,7 @@ async function sendingAuthorizationData()
   if (response.ok){
     let res = await response.json();
     if (res['status']) {
-      window.location.href = '/';
+      window.location.href = '/admin/';
     } else {
       messageForForm(formAuthorization,'Неверный логин или пароль.');
     }

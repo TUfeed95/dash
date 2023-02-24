@@ -7,5 +7,6 @@ return [
   new Route('/admin/login/', 'admin', 'login'),
   new Route('/admin/register/', 'admin', 'register'),
   new Route('/admin/register-form/', 'admin', 'registrationData'),
-  new Route('/admin/', 'admin', 'default'),
+  new Route('/admin/logout/', 'admin', 'logout'),
+  new Route('/admin/', 'admin', 'index'),
 ];
