@@ -36,7 +36,8 @@ class AdminController
   public function index(): void
   {
 		if ($_SESSION['auth']) {
-			(new UserView(template: 'admin/index.php'))->render();
+			$user = (new User($_SESSION['user_id']))->currentUser();
+			(new UserView(template: 'admin/index.php'))->render($user);
 		} else {
 			header('Location: /admin/login/');
 		}

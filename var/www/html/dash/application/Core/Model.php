@@ -21,7 +21,7 @@ class Model
    * @param string $column  имя поля по которому отбирать запись
    * @param string $param  значение по которому отбирать запись
    */
-  protected function getOneRecord(string $column, string $param)
+  public function getOneRecord(string $column, string $param)
   {
     $connection = Database::connection();
 

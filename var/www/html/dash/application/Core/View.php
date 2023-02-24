@@ -21,8 +21,12 @@ class View
     }
   }
 
-  public function render(): void
+  public function render($params = null): void
   {
+		$data = '';
+		if ($params != null) {
+			$data = $params;
+    }
     $this->generateCSRFToken();
     require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $this->template;
   }

@@ -5,49 +5,21 @@
  */
 class User
 {
-  /**
-   * Логин пользователя
-   * @var string
-   */
-  public string $login;
-  /**
-   * E-mail пользователя
-   * @var string
-   */
-  public string $email;
 
-  public function __construct($login, $email)
+  public function __construct(public $id)
   {
-    $this->login = $login;
-    $this->email = $email;
-  }
-
-  /**
-   * Получаем e-mail пользователя
-   *
-   * @return string
-   */
-  public function getEmail(): string
-  {
-    return $this->email;
-  }
-
-  /**
-   * Получаем логин пользователя
-   *
-   * @return string
-   */
-  public function getLogin(): string
-  {
-    return $this->login;
   }
 
   /**
    * Текущий пользователь
    *
    */
-  public function currentUser($id)
+  public function currentUser()
   {
-    return $id;
+    $model = new UserModel('users');
+		$user = $model->getOneRecord('id', $this->id);
+		if ($user) {
+			return $user;
+		}
   }
 }
