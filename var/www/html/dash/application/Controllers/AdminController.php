@@ -9,8 +9,7 @@ class AdminController
    */
   public function login(): void
   {
-    //(new UserView())->loginTemplate();
-    (new UserView())->render('admin/login.php');
+    (new UserView(template: 'admin/login.php'))->render();
   }
 
   /**
@@ -18,8 +17,7 @@ class AdminController
    */
   public function register(): void
   {
-    (new UserView())->render('admin/register.php');
-    //(new UserView())->registerTemplate();
+    (new UserView(template: 'admin/register.php'))->render();
   }
 
   /**
@@ -31,15 +29,14 @@ class AdminController
   {
     Tool::checkCsrfToken(htmlspecialchars($_POST['token']));
 
-    // получаем данные из фронта, через fetch  запрос
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['password']);
 
-    $model = new UserModel();
-    $view = new UserView();
+    $model = new UserModel('users');
+    $view = new UserView(model: $model->authorizationUser($login, $password));
 
-    $isAuthorization = $model->authorizationUser($login, $password); // проверка правильности данных авторизации
-    $view->response($isAuthorization); // передаем ответ в представление
+
+    $view->response(); // передаем ответ
   }
 
   /**
@@ -56,11 +53,9 @@ class AdminController
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['password']);
 
-    $model = new UserModel();
-    $view = new UserView();
+    $model = new UserModel('users');
+    $view = new UserView(model: $model->registrationUser($email, $login, $password));
 
-    $isRegistration = $model->registrationUser($email, $login, $password);
-    $view->response($isRegistration);
+    $view->response();
   }
-
 }

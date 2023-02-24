@@ -2,23 +2,30 @@
 
 class Model
 {
+
+  public function __construct(protected $tableName)
+  {
+  }
+
   /**
    * Имя таблицы
    */
-  protected string $tableName;
+  public function getTableName()
+  {
+    return $this->tableName;
+  }
 
   /**
    * Возвращает одну запись из таблицы
-   * 
-   * @param string $table  имя таблицы
+   *
    * @param string $column  имя поля по которому отбирать запись
    * @param string $param  значение по которому отбирать запись
    */
-  protected function getOneRecord(string $table, string $column, string $param)
+  protected function getOneRecord(string $column, string $param)
   {
     $connection = Database::connection();
 
-    $query = 'SELECT * FROM ' . $table .  ' WHERE ' . $column . ' = :param';
+    $query = 'SELECT * FROM ' . $this->tableName .  ' WHERE ' . $column . ' = :param';
     
     try {
       $stmt = $connection->prepare($query);
@@ -45,11 +52,10 @@ class Model
     /**
      * Добавление записи в таблицу
      *
-     * @param string $tableName имя таблицы
      * @param array $params ассоциативный массив где: key = имя колонки, а value = содержимое колонки
      * @throws Exception
      */
-  protected function addRecord(string $tableName, array $params): bool
+  protected function addRecord(array $params): bool
   {
     $connection = Database::connection();
 
@@ -72,7 +78,7 @@ class Model
     $columnNames = implode(',', $columns); // наименования колонок
     $pseudoVariables = implode(',', $prepareColumns); // псевдопеременные
 
-    $query = "INSERT INTO " . $tableName . " (" . $columnNames . ") VALUES (" . $pseudoVariables . ")";
+    $query = "INSERT INTO " . $this->tableName . " (" . $columnNames . ") VALUES (" . $pseudoVariables . ")";
 
     try {
       $stmt = $connection->prepare($query);

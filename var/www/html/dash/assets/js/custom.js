@@ -1,10 +1,10 @@
 /**
- * Элемент, формы регистрации
+ * Элемент формы регистрации
  * @type {HTMLElement}
  */
 const formRegistration = document.getElementById('formRegistration');
 /**
- *  Элемент, формы авторизации
+ *  Элемент формы авторизации
  * @type {HTMLElement}
  */
 const formAuthorization = document.getElementById('formAuthorization');
@@ -81,6 +81,9 @@ async function sendingAuthorizationData()
   }
 }
 
+/**
+ * Удаляем сообщения об ошибках
+ */
 function messageErrorClear()
 {
   let error = document.querySelector('.error');
@@ -92,8 +95,8 @@ function messageErrorClear()
 /**
  * Выводим блок с сообщением для формы.
  *
- * @param elementForm
- * @param message
+ * @param elementForm элемент формы
+ * @param message сообщение об ошибке
  */
 function messageForForm(elementForm, message)
 {
