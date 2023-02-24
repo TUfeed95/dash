@@ -6,15 +6,9 @@
 class UserModel extends Model
 {
 
-  /**
-   * Имя таблицы
-   *
-   * @return string
-   */
-  private function tableName(): string
+  public function __construct($tableName)
   {
-    $this->tableName = 'users';
-    return $this->tableName;
+    parent::__construct($tableName);
   }
 
   /**
@@ -27,7 +21,7 @@ class UserModel extends Model
   public function authorizationUser(string $login, string $password): array
   {
 
-    $user = self::getOneRecord(self::tableName(), 'login', $login);
+    $user = parent::getOneRecord('login', $login);
 
     // если пользователь найден по логину, проверяем пароль
     if ($user && $user['password'] == $password) {
@@ -57,22 +51,22 @@ class UserModel extends Model
 
     // что бы понять свободен ли e-mail, ищем пользователей у кого есть такой адрес
     // если пользователь не найден то и e-mail свободен
-    $checkEmail = self::getOneRecord(self::tableName(), 'email', $email);
+    $checkEmail = parent::getOneRecord('email', $email);
 
     if ($checkEmail) {
       return ['email' => true];
     }
     $result['email'] = false;
 
-    $checkLogin = self::getOneRecord(self::tableName(), 'login', $login);
+    $checkLogin = parent::getOneRecord('login', $login);
 
     if ($checkLogin) {
       return ['login' => true];
     }
     $result['login'] = false;
 
-    // ключи должны соотвествовать именам колонок  в таблице
-    $result['status'] = self::addRecord($this->tableName(), [
+    // ключи должны соотвествовать именам колонок в таблице
+    $result['status'] = parent::addRecord([
       'login' => $login,
       'password' => $password,
       'email' => $email,
