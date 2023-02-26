@@ -74,4 +74,26 @@ class UserModel extends Model
 
     return $result;
   }
+
+	public function getUserLogin($column, $param)
+	{
+		$connection = Database::connection();
+
+		$query = 'SELECT login FROM ' . $this->getTableName() .  ' WHERE ' . $column . ' = :param';
+		try {
+			$stmt = $connection->prepare($query);
+			$stmt->execute(['param' => $param]);
+		} catch (PDOException $exception) {
+			throw new PDOException('Привыполнении запроса возникла ошибка: ' . $exception->getMessage());
+		}
+		if ($stmt->rowCount()) {
+			$login = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			// закрываем подключение
+			$connection = null;
+			$stmt = null;
+
+			return $login;
+		}
+	}
 }

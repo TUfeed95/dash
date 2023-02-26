@@ -1,14 +1,19 @@
+<?php
+$user = new User($_SESSION['user_id']);
+$currentUser = $user->currentUser();
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="../../assets/css/main/app.css"/>
-  <link rel="stylesheet" href="../../assets/css/main/app-dark.css"/>
-  <link rel="shortcut icon" href="../../assets/images/logo/favicon.svg" type="image/x-icon"/>
-  <link rel="shortcut icon" href="../../assets/images/logo/favicon.png" type="image/png"/>
-  <link rel="stylesheet" href="../../assets/css/shared/iconly.css"/>
+  <link rel="stylesheet" href="/assets/css/main/app.css"/>
+
+  <link rel="stylesheet" href="/assets/css/main/app-dark.css"/>
+  <link rel="shortcut icon" href="/assets/images/logo/favicon.svg" type="image/x-icon"/>
+  <link rel="shortcut icon" href="/assets/images/logo/favicon.png" type="image/png"/>
+  <link rel="stylesheet" href="/assets/css/shared/iconly.css"/>
 </head>
 
 <body>
@@ -18,7 +23,7 @@
       <div class="header-top">
         <div class="container">
           <div class="logo">
-            <a href="index.html"><img src="../../assets/images/logo/logo.svg" alt="Logo"/></a>
+            <a href="/admin/"><img src="/assets/images/logo/logo.svg" alt="Logo"/></a>
           </div>
           <div class="header-top-right">
             <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
@@ -45,17 +50,17 @@
                  class="user-dropdown d-flex align-items-center dropend dropdown-toggle"
                  data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="avatar avatar-md2">
-                  <img src="../../assets/images/faces/1.jpg" alt="Avatar"/>
+                  <img src="/assets/images/faces/1.jpg" alt="Avatar"/>
                 </div>
                 <div class="text">
-                  <h6 class="user-dropdown-name"><?php echo $data['login']?></h6>
+                  <h6 class="user-dropdown-name"><?php echo $currentUser['login']?></h6>
                   <p class="user-dropdown-status text-sm text-muted">
-	                  <?php echo $data['email']?>
+	                  <?php echo $currentUser['email']?>
                   </p>
                 </div>
               </a>
               <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
-                <li><a class="dropdown-item" href="#">Профиль</a></li>
+                <li><a class="dropdown-item" href="/admin/user/profile/">Мой профиль</a></li>
                 <li><a class="dropdown-item" href="#">Настройки</a></li>
                 <li>
                   <hr class="dropdown-divider"/>

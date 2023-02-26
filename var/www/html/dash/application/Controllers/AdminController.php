@@ -9,7 +9,7 @@ class AdminController
    */
   public function login(): void
   {
-    (new UserView(template: 'admin/login.php'))->render();
+    (new UserView())->render('admin/login.php');
   }
 
   /**
@@ -17,7 +17,7 @@ class AdminController
    */
   public function register(): void
   {
-    (new UserView(template: 'admin/register.php'))->render();
+    (new UserView())->render('admin/register.php');
   }
 
 	/**
@@ -36,8 +36,7 @@ class AdminController
   public function index(): void
   {
 		if ($_SESSION['auth']) {
-			$user = (new User($_SESSION['user_id']))->currentUser();
-			(new UserView(template: 'admin/index.php'))->render($user);
+			(new UserView())->render('admin/index.php');
 		} else {
 			header('Location: /admin/login/');
 		}
@@ -56,7 +55,7 @@ class AdminController
     $password = htmlspecialchars($_POST['password']);
 
     $model = new UserModel('users');
-    $view = new UserView(model: $model->authorizationUser($login, $password));
+    $view = new UserView($model->authorizationUser($login, $password));
 
     $view->response(); // передаем ответ
   }
@@ -76,7 +75,7 @@ class AdminController
     $password = htmlspecialchars($_POST['password']);
 
     $model = new UserModel('users');
-    $view = new UserView(model: $model->registrationUser($email, $login, $password));
+    $view = new UserView($model->registrationUser($email, $login, $password));
 
     $view->response();
   }

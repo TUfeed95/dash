@@ -26,7 +26,7 @@
           </p>
           <form id="formRegistration" method="post" action="/admin/register-form/">
             <div class="form-group position-relative has-icon-left mb-4">
-              <input type="text" name="email" id="email" class="form-control form-control-xl" placeholder="E-mail" required/>
+              <input type="email" name="email" id="email" class="form-control form-control-xl" placeholder="E-mail" required/>
               <div class="form-control-icon">
                 <i class="bi bi-envelope"></i>
               </div>
