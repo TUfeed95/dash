@@ -10,7 +10,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Личная информация</h4>
+                <h4 class="card-title">Основная информация</h4>
               </div>
               <div class="card-content">
                 <div class="card-body">
@@ -30,13 +30,13 @@
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
-                          <label for="email-id-column">Email *</label>
+                          <label for="email-id-column" class="form-required">E-mail</label>
                           <input type="email" id="email-id-column" class="form-control" name="email-id-column" value="<?php echo $currentUser['email']?>" placeholder="Email" required>
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
-                          <label for="country-floating">Логин *</label>
+                          <label for="country-floating" class="form-required">Логин</label>
                           <input type="text" id="login-floating" class="form-control" name="login-floating" value="<?php echo $currentUser['login']?>" placeholder="Логин" required>
                         </div>
                       </div>

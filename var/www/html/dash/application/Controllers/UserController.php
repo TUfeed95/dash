@@ -4,7 +4,7 @@ class UserController
 {
 
 	/**
-	 * Страница админпанели
+	 * Страница мой профиль
 	 */
 	public function index(): void
 	{
