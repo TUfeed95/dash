@@ -4,12 +4,10 @@ class View
 {
 
   protected $model;
-  protected $template;
 
-  public function __construct($model = null, $template = null)
+  public function __construct($model = null)
   {
     $this->model = $model;
-    $this->template = $template;
   }
 
   protected function generateCSRFToken(): void
@@ -21,13 +19,9 @@ class View
     }
   }
 
-  public function render($params = null): void
+  public function render($template, $data = null): void
   {
-		$data = '';
-		if ($params != null) {
-			$data = $params;
-    }
     $this->generateCSRFToken();
-    require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $this->template;
+    require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $template;
   }
 }

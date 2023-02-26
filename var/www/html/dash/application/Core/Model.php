@@ -3,17 +3,14 @@
 class Model
 {
 
-  public function __construct(protected $tableName)
+  public function __construct(private $tableName)
   {
   }
 
-  /**
-   * Имя таблицы
-   */
-  public function getTableName()
-  {
-    return $this->tableName;
-  }
+	public function getTableName()
+	{
+		return $this->tableName;
+	}
 
   /**
    * Возвращает одну запись из таблицы
@@ -31,7 +28,7 @@ class Model
       $stmt = $connection->prepare($query);
       $stmt->execute(['param' => $param]);
     } catch (PDOException $exception) {
-      echo "Произошла ошибка при выполнении запроса: " . $exception->getMessage();
+      throw new PDOException('Привыполнении запроса возникла ошибка: ' . $exception->getMessage());
     }
     
     // если кол-во строк более 0 то возвращем в виде массива

@@ -126,6 +126,16 @@ function validateEmail(email)
   return pattern.test(String(email));
 }
 
+/**
+ * Текущий год
+ * @returns {number}
+ */
+function currentYear()
+{
+  let toDay = new Date();
+  return toDay.getFullYear();
+}
+
 if (formRegistration != null) {
   formRegistration.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -141,3 +151,6 @@ if (formAuthorization != null) {
     sendingAuthorizationData();
   });
 }
+
+let yearTag = document.querySelector('#currentYear')
+yearTag.innerHTML = '<p>' + currentYear() + ' &copy; TDash</p>';
