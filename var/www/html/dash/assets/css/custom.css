@@ -6,3 +6,8 @@
 .error-auth .form-control{
   border-color: #dc3545;
 }
+
+.form-required::after{
+  color: #dc3545;
+  content: " *";
+}

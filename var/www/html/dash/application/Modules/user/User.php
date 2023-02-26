@@ -27,10 +27,11 @@ class User
 		return $this->login;
 	}
 
-  /**
-   * Текущий пользователь
-   *
-   */
+	/**
+	 * Текущий пользователь
+	 *
+	 * @throws Exception
+	 */
   public function currentUser()
   {
 		if ($this->id === $_SESSION['user_id']) {
