@@ -4,6 +4,8 @@ session_start();
 
 require_once realpath(dirname(__FILE__) . '/application/Database/Database.php');
 
+require_once realpath(dirname(__FILE__) . '/application/Auth/UserAuthentication.php');
+
 require_once realpath(dirname(__FILE__) . '/application/Core/Router.php');
 require_once realpath(dirname(__FILE__) . '/application/Core/Dispatcher.php');
 require_once realpath(dirname(__FILE__) . '/application/Core/Controller.php');
