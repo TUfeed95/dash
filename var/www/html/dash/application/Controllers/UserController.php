@@ -15,4 +15,11 @@ class UserController
 		}
 	}
 
+
+	public function basicInformation()
+	{
+		$model = new UserModel('users');
+		$view = new UserView($model);
+	}
+
 }

@@ -14,7 +14,7 @@
               </div>
               <div class="card-content">
                 <div class="card-body">
-                  <form class="form" method="post">
+                  <form class="formBasicInformation" method="post">
                     <div class="row">
                       <div class="col-md-6 col-12">
                         <div class="form-group">

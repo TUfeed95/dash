@@ -7,11 +7,15 @@ class Database
   const DB_NAME = 'dashboard_db';
   const DB_HOST = 'dash_db';
 
+	private $select = '';
+	private $from = '';
+	private $where = '';
+
   /**
    * Подключение к базе данных
    * @return PDO|void
    */
-  public static function connection()
+  public function connection()
   {
     try {
       $dsn = sprintf("pgsql:host='%s';port=5432;dbname='%s';user='%s';password='%s'", self::DB_HOST, self::DB_NAME, self::DB_USER, self::DB_USER_PASSWORD);
@@ -29,14 +33,39 @@ class Database
    * Иначе возвращает 1.
    * @param string $tableName Имя таблицы
    */
-  public static function checkTable(string $tableName)
+  public static function checkTable(string $tableName): bool|PDOStatement
   {
-    $conn = self::connection();
+    $conn = (new Database)->connection();
     $query = "SELECT EXISTS (SELECT FROM information_schema.tables WHERE TABLE_NAME = '" . $tableName . "')";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     return $stmt;
   }
 
+	public function select($columns)
+	{
+		$this->select = "SELECT " . $columns;
+		return $this;
+	}
+
+	public function from($table)
+	{
+		$this->from = " FROM " . $table;
+		return $this;
+	}
+
+	public function where($params)
+	{
+		$this->where = " WHERE " . $params;
+		return $this;
+	}
+
+	public function query()
+	{
+		$connection = (new Database())->connection();
+		$query = $this->select . $this->from . $this->where;
+		$stmt = $connection->prepare($query);
+
+	}
 
 }
