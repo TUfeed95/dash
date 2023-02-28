@@ -8,7 +8,8 @@ class Migrations
 
   public function createTableMigrationVersions(): \PDOStatement|false
   {
-    $connection = Database::connection();
+	  $db = new Database();
+	  $connection = $db->connection();
     // проверям существование таблицы
     $checkTableMigrationVersions = Database::checkTable(self::TABLE_MIGRATION_VERSIONS);
     $tableMigrationVersionsExists = $checkTableMigrationVersions->fetch(PDO::FETCH_ASSOC);
@@ -34,7 +35,8 @@ class Migrations
    */
   public function getMigrationFiles($tableMigrationVersions, $migrationFiles): array
   {
-    $connection = Database::connection();
+	  $db = new Database();
+	  $connection = $db->connection();
     // формируем массив из имен файлов
     $nameMigrationFiles = [];
     foreach ($migrationFiles as $migrationFile) {
@@ -67,7 +69,8 @@ class Migrations
    */
   public function executeQuery($query): bool
   {
-    $connection = Database::connection();
+	  $db = new Database();
+	  $connection = $db->connection();
     try{
       $stmt = $connection->prepare($query);
       $stmt->execute();

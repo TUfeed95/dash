@@ -3,11 +3,28 @@
  * @type {HTMLElement}
  */
 const formRegistration = document.getElementById('formRegistration');
+
 /**
- *  Элемент формы авторизации
+ * Элемент формы авторизации
  * @type {HTMLElement}
  */
 const formAuthorization = document.getElementById('formAuthorization');
+
+/**
+ * Элемент формы "Основная информация" на странице профиля пользователя
+ * @type {HTMLElement}
+ */
+const formBasicInformation = document.getElementById('formBasicInformation');
+
+async function sendingBasicInformationUserData()
+{
+  let url = '/admin/user/basic-information/';
+  let formData = new FormData(formBasicInformation);
+
+  let response = await requestFetch(url, formData, 'POST');
+
+
+}
 
 /**
  * Отправка формы регистрации
@@ -30,10 +47,7 @@ async function sendingRegistrationData()
     // поле подтверждения пароля отправлять не нужно
     formData.delete('confirm-password');
 
-    let response = await fetch(url, {
-      method: 'POST',
-      body: formData,
-    });
+    let response = await requestFetch(url, formData, 'POST');
 
     if (response.ok) {
       let res = await response.json();
@@ -65,10 +79,7 @@ async function sendingAuthorizationData()
   let url = '/admin/login-form/'; // адрес авторизации пользователя
   let formData = new FormData(formAuthorization); // данные с формы
   // отправляем запрос на сервер
-  let response = await fetch(url, {
-    method: 'POST',
-    body: formData,
-  });
+  let response = await requestFetch(url, formData, 'POST');
 
   if (response.ok){
     let res = await response.json();
@@ -136,6 +147,20 @@ function currentYear()
   return toDay.getFullYear();
 }
 
+/**
+ * Отправка данных на сервер
+ * @param url
+ * @param formData
+ * @param method
+ * @returns {Promise<Response>}
+ */
+async function requestFetch(url, formData, method) {
+  return await fetch(url, {
+    method: method,
+    body: formData,
+  });
+}
+
 if (formRegistration != null) {
   formRegistration.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -152,5 +177,13 @@ if (formAuthorization != null) {
   });
 }
 
-let yearTag = document.querySelector('#currentYear')
-yearTag.innerHTML = '<p>' + currentYear() + ' &copy; TDash</p>';
+
+/**
+ * Текущий год в footer
+ * @type {Element}
+ */
+let yearTag = document.querySelector('#currentYear');
+if (yearTag) {
+  yearTag.innerHTML = '<p>' + currentYear() + ' &copy; TDash</p>';
+}
+

@@ -10,4 +10,5 @@ return [
   new Route('/admin/logout/', 'admin', 'logout'),
   new Route('/admin/', 'admin', 'index'),
   new Route('/admin/user/profile/', 'user', 'index'),
+  new Route('/admin/user/basic-information/', 'user', 'basicInformation'),
 ];

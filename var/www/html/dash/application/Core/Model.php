@@ -20,7 +20,8 @@ class Model
    */
   public function getOneRecord(string $column, string $param)
   {
-    $connection = Database::connection();
+	  $db = new Database();
+	  $connection = $db->connection();
 
     $query = 'SELECT * FROM ' . $this->tableName .  ' WHERE ' . $column . ' = :param';
     
@@ -54,7 +55,8 @@ class Model
      */
   protected function addRecord(array $params): bool
   {
-    $connection = Database::connection();
+		$db = new Database();
+    $connection = $db->connection();
 
     $columns = [];
     $prepareColumns = [];
