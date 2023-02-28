@@ -54,8 +54,8 @@ class AdminController
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['password']);
 
-    $model = new UserModel('users');
-    $view = new UserView($model->authorizationUser($login, $password));
+    $userAuthentication = new UserAuthentication();
+    $view = new UserView($userAuthentication->authorization($login, $password));
 
     $view->response(); // передаем ответ
   }
@@ -74,8 +74,8 @@ class AdminController
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['password']);
 
-    $model = new UserModel('users');
-    $view = new UserView($model->registrationUser($email, $login, $password));
+	  $userAuthentication = new UserAuthentication();
+    $view = new UserView($userAuthentication->registration($email, $login, $password));
 
     $view->response();
   }

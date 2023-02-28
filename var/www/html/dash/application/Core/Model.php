@@ -15,8 +15,8 @@ class Model
   /**
    * Возвращает одну запись из таблицы
    *
-   * @param string $column  имя поля по которому отбирать запись
-   * @param string $param  значение по которому отбирать запись
+   * @param string $column  Имя поля по которому отбирать запись
+   * @param string $param  Значение по которому отбирать запись
    */
   public function getOneRecord(string $column, string $param)
   {
@@ -29,10 +29,10 @@ class Model
       $stmt = $connection->prepare($query);
       $stmt->execute(['param' => $param]);
     } catch (PDOException $exception) {
-      throw new PDOException('Привыполнении запроса возникла ошибка: ' . $exception->getMessage());
+      throw new PDOException('При выполнении запроса возникла ошибка: ' . $exception->getMessage());
     }
     
-    // если кол-во строк более 0 то возвращем в виде массива
+    // если кол-во строк более 0, то возвращаем в виде массива
     // по идее строк не может быть больше одной
     if ($stmt->rowCount()) {
       $response = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -50,10 +50,10 @@ class Model
     /**
      * Добавление записи в таблицу
      *
-     * @param array $params ассоциативный массив где: key = имя колонки, а value = содержимое колонки
+     * @param array $params Ассоциативный массив где: key = имя колонки, а value = содержимое колонки
      * @throws Exception
      */
-  protected function addRecord(array $params): bool
+  public function addRecord(array $params): bool
   {
 		$db = new Database();
     $connection = $db->connection();
