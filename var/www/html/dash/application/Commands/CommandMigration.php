@@ -10,7 +10,7 @@ class CommandMigration
    */
   public function init(): void
   {
-    // проверяем существовение директории с миграциями, если ее нет то создаем
+    // проверяем существование директории с миграциями, если ее нет то создаем
     if (!file_exists('../Database/migrations')) {
       mkdir('../Database/migrations');
       echo "Создана директория" . PHP_EOL;
@@ -51,7 +51,7 @@ class CommandMigration
     if ($getMigrationFiles){
       echo "Начинаем миграцию:" . PHP_EOL;
       foreach ($getMigrationFiles as $file) {
-        // выпоняем миграции
+        // выполняем миграции
         $query = file_get_contents(str_replace('\\', '/', realpath(dirname(__DIR__)) . '/Database/migrations/' . $file));
         if ($migration->executeQuery($query)){
           // сохраняем в таблицу

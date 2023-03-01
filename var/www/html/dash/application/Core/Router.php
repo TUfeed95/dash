@@ -19,12 +19,12 @@ class Router
       require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/index.php';
       return;
     }
-    // парсим url, получаем из него парматры и передаем в класс контроллера
+    // парсим url, получаем из него параметры и передаем в класс контроллера
     $query = parse_url($this->uri);
     foreach ($this->routes as $route) {
       $pattern = self::generatePatternRouter($route);
       if (preg_match($pattern, $query['path'], $matches)) {
-        // получаем парметры из url
+        // получаем параметры из url
         // если есть параметры то передаем, иначе null
         if (array_key_exists('query', $query)) {
           parse_str($query['query'], $params);
@@ -54,7 +54,6 @@ class Router
     $separator = '\/';
     // разбиваем роутер на фрагменты
     $fragments = parse_url($route->path);
-    $path = $fragments['path'];
-    return '/(' . str_replace('/', $separator, $path) . ')$/';
+    return '/(' . str_replace('/', $separator, $fragments['path']) . ')$/';
   }
 }

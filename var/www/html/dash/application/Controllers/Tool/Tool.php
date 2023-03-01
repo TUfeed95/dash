@@ -6,13 +6,13 @@ class Tool
    * Проверка csrf-токена
    *
    * @param $token
-   * @return void
+   * @return bool
    */
-  public static function checkCsrfToken($token): void
+  public static function checkCsrfToken($token): bool
   {
     if (!$token || $token !== $_SESSION['csrf_token']) {
-      header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
-      exit;
-    }
+      return false;
+		}
+		return true;
   }
 }
