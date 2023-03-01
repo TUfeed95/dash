@@ -22,6 +22,6 @@ class View
   public function render($template, $data = null): void
   {
     $this->generateCSRFToken();
-    require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $template;
+    include $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $template;
   }
 }

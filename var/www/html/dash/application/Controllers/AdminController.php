@@ -49,7 +49,11 @@ class AdminController
    */
   public function authorizationData(): void
   {
-    Tool::checkCsrfToken(htmlspecialchars($_POST['token']));
+		// проверка токена
+    if (!Tool::checkCsrfToken(htmlspecialchars($_POST['token']))) {
+	    header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
+	    exit;
+    }
 
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['password']);
@@ -68,7 +72,11 @@ class AdminController
    */
   public function registrationData(): void
   {
-    Tool::checkCsrfToken(htmlspecialchars($_POST['token']));
+	  // проверка токена
+	  if (!Tool::checkCsrfToken(htmlspecialchars($_POST['token']))) {
+		  header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
+		  exit;
+	  }
 
     $email = htmlspecialchars($_POST['email']);
     $login = htmlspecialchars($_POST['login']);
