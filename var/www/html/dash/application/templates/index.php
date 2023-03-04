@@ -13,7 +13,7 @@
 
 <body>
   <h1>Главная страница сайта!</h1>
-  <p><? print_r($_SESSION); ?></p>
+  <p><?php print_r($_SESSION); ?></p>
 </body>
 
 </html>

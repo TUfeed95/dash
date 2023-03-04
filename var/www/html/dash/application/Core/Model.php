@@ -20,8 +20,8 @@ class Model
    */
   public function getOneRecord(string $column, string $param)
   {
-	  $db = new Database();
-	  $connection = $db->connection();
+
+	  $connection = (ConnectionDB::getInstance())->connection();
 
     $query = 'SELECT * FROM ' . $this->tableName .  ' WHERE ' . $column . ' = :param';
     
@@ -47,16 +47,15 @@ class Model
     }
   }
 
-    /**
-     * Добавление записи в таблицу
-     *
-     * @param array $params Ассоциативный массив где: key = имя колонки, а value = содержимое колонки
-     * @throws Exception
-     */
+  /**
+   * Добавление записи в таблицу
+   *
+   * @param array $params Ассоциативный массив где: key = имя колонки, а value = содержимое колонки
+   * @throws Exception
+   */
   public function addRecord(array $params): bool
   {
-		$db = new Database();
-    $connection = $db->connection();
+	  $connection = (ConnectionDB::getInstance())->connection();
 
     $columns = [];
     $prepareColumns = [];

@@ -13,8 +13,8 @@ class UserModel extends Model
 
 	public function getUserLogin($column, $param)
 	{
-		$db = new Database();
-		$connection = $db->connection();
+
+		$connection = (ConnectionDB::getInstance())->connection();
 
 		$query = 'SELECT login FROM ' . $this->getTableName() .  ' WHERE ' . $column . ' = :param';
 		try {
