@@ -20,7 +20,6 @@ class Model
    */
   public function getOneRecord(string $column, string $param)
   {
-
 	  $connection = (ConnectionDB::getInstance())->connection();
 
     $query = 'SELECT * FROM ' . $this->tableName .  ' WHERE ' . $column . ' = :param';
@@ -35,13 +34,7 @@ class Model
     // если кол-во строк более 0, то возвращаем в виде массива
     // по идее строк не может быть больше одной
     if ($stmt->rowCount()) {
-      $response = $stmt->fetch(PDO::FETCH_ASSOC);
-
-      // закрываем подключение
-      $connection = null;
-      $stmt = null;
-
-      return $response;
+	    return $stmt->fetch(PDO::FETCH_ASSOC);
     } else {
       return false;
     }
@@ -81,15 +74,10 @@ class Model
     try {
       $stmt = $connection->prepare($query);
       $stmt->execute($params);
-
-      $connection = null;
-      $stmt = null;
-
       return true;
     } catch (PDOException $exception) {
       echo "Произошла ошибка при выполнении запроса: " . $exception->getMessage();
       return false;
     }
-
   }
 }
