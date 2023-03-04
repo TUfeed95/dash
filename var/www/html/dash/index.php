@@ -3,6 +3,7 @@ session_start();
 
 
 require_once realpath(dirname(__FILE__) . '/application/Database/Database.php');
+require_once realpath(dirname(__FILE__) . '/application/Database/ConnectionDB.php');
 
 require_once realpath(dirname(__FILE__) . '/application/Auth/UserAuthentication.php');
 
