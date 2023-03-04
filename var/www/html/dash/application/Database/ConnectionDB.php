@@ -16,6 +16,12 @@ class ConnectionDB
 	 */
 	private static ?ConnectionDB $instance = null;
 
+	/**
+	 * Подключение к БД
+	 * @var
+	 */
+	public $connection;
+
 	private function __construct()
 	{
 	}
@@ -39,8 +45,11 @@ class ConnectionDB
 	public function connection()
 	{
 		try {
-			$dsn = sprintf("pgsql:host='%s';port=5432;dbname='%s';user='%s';password='%s'", self::DB_HOST, self::DB_NAME, self::DB_USER, self::DB_USER_PASSWORD);
-			return new PDO($dsn);
+			$dsn = sprintf("pgsql:host='%s';port=5432;dbname='%s';user='%s';password='%s'",
+				self::DB_HOST, self::DB_NAME, self::DB_USER, self::DB_USER_PASSWORD);
+
+			$this->connection = new PDO($dsn, options:[PDO::ATTR_PERSISTENT=>true]);
+			return $this->connection;
 		} catch (PDOException $e) {
 			echo "Ошибка подключения к базе данных: " . $e->getMessage() . PHP_EOL;
 			die();

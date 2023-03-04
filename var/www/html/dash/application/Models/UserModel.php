@@ -24,13 +24,7 @@ class UserModel extends Model
 			throw new PDOException('При выполнении запроса возникла ошибка: ' . $exception->getMessage());
 		}
 		if ($stmt->rowCount()) {
-			$login = $stmt->fetch(PDO::FETCH_ASSOC);
-
-			// закрываем подключение
-			$connection = null;
-			$stmt = null;
-
-			return $login;
+			return $stmt->fetch(PDO::FETCH_ASSOC);
 		}
 	}
 }
