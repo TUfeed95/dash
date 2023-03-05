@@ -12,25 +12,27 @@ class Model
 		return $this->tableName;
 	}
 
-  /**
-   * Возвращает одну запись из таблицы
-   *
-   * @param string $column  Имя поля по которому отбирать запись
-   * @param string $param  Значение по которому отбирать запись
-   */
-  public function getOneRecord(string $column, string $param)
+	/**
+	 * Возвращает одну запись из таблицы
+	 *
+	 * @param string $column Имя поля по которому отбирать запись
+	 * @param string $value Значение по которому отбирать запись
+	 * @throws Exception
+	 */
+  public function getOneRecord(string $column, string $value)
   {
-	  $connection = (ConnectionDB::getInstance())->connection();
-
-    $query = 'SELECT * FROM ' . $this->tableName .  ' WHERE ' . $column . ' = :param';
+		$db = new Database();
+	  $params = [$column => $value];
     
     try {
-      $stmt = $connection->prepare($query);
-      $stmt->execute(['param' => $param]);
+	    $stmt = $db->createRequest()
+		    ->select()
+		    ->from($this->tableName)
+		    ->where($params)
+		    ->query();
     } catch (PDOException $exception) {
       throw new PDOException('При выполнении запроса возникла ошибка: ' . $exception->getMessage());
     }
-    
     // если кол-во строк более 0, то возвращаем в виде массива
     // по идее строк не может быть больше одной
     if ($stmt->rowCount()) {

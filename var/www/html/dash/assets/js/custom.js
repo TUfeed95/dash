@@ -23,7 +23,6 @@ async function sendingBasicInformationUserData()
 
   let response = await requestFetch(url, formData, 'POST');
 
-
 }
 
 /**
@@ -176,7 +175,6 @@ if (formAuthorization != null) {
     sendingAuthorizationData();
   });
 }
-
 
 /**
  * Текущий год в footer

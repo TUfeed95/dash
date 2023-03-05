@@ -3,6 +3,7 @@ $user = new User($_SESSION['user_id']);
 try {
 	$currentUser = $user->currentUser();
 } catch (Exception $e) {
+  throw new Exception($e);
 }
 ?>
 <!DOCTYPE html>
@@ -56,9 +57,9 @@ try {
                   <img src="/assets/images/faces/1.jpg" alt="Avatar"/>
                 </div>
                 <div class="text">
-                  <h6 class="user-dropdown-name"><?php echo $currentUser['login']?></h6>
+                  <h6 class="user-dropdown-name"><?php echo $currentUser['login'] ?? 'error'?></h6>
                   <p class="user-dropdown-status text-sm text-muted">
-	                  <?php echo $currentUser['email']?>
+	                  <?php echo $currentUser['email']  ?? 'error'?>
                   </p>
                 </div>
               </a>

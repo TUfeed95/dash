@@ -40,9 +40,10 @@ class ConnectionDB
 
 	/**
 	 * Подключение к базе данных
-	 * @return PDO|void
+	 * @return PDO
+	 * @throws Exception
 	 */
-	public function connection()
+	public function connection(): PDO
 	{
 		try {
 			$dsn = sprintf("pgsql:host='%s';port=5432;dbname='%s';user='%s';password='%s'",
@@ -51,8 +52,7 @@ class ConnectionDB
 			$this->connection = new PDO($dsn, options:[PDO::ATTR_PERSISTENT=>true]);
 			return $this->connection;
 		} catch (PDOException $e) {
-			echo "Ошибка подключения к базе данных: " . $e->getMessage() . PHP_EOL;
-			die();
+			throw new Exception("Ошибка подключения к базе данных: " . $e->getMessage() . PHP_EOL);
 		}
 	}
 }
