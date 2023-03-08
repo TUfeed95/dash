@@ -1,6 +1,7 @@
 <?php
 
-class ORM
+// TODO позже разработать нормальный билдер
+class Builder
 {
 	private string $select = '';
 	private string $from = '';
