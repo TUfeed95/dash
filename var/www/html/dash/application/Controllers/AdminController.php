@@ -9,7 +9,7 @@ class AdminController
    */
   public function login(): void
   {
-    (new UserView())->render('admin/login.php');
+    (new UserView())->render('admin/auth/login.php');
   }
 
   /**
@@ -17,7 +17,7 @@ class AdminController
    */
   public function register(): void
   {
-    (new UserView())->render('admin/register.php');
+    (new UserView())->render('admin/auth/register.php');
   }
 
 	/**
