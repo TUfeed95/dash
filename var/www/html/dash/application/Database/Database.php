@@ -21,10 +21,10 @@ class Database
 	/**
 	 * Для того, что бы организовать простую ОРМ и в цепочке вызова методов не было лишних функций,
 	 * возвращаем объект класса ORM
-	 * @return ORM
+	 * @return Builder
 	 */
-	public function createRequest(): ORM
+	public function createRequest(): Builder
 	{
-		return new ORM();
+		return new Builder();
 	}
 }
