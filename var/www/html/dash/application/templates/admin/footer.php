@@ -20,5 +20,6 @@
 <script src="/assets/js/bootstrap.js"></script>
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/pages/horizontal-layout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>
