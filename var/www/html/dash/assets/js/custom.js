@@ -34,7 +34,7 @@ function notification(styleBackground, message)
 {
     Toastify({
         text: message,
-        duration: 5000,
+        duration: 3000,
         newWindow: false,
         close: false,
         gravity: "top", // `top` or `bottom`
@@ -61,7 +61,11 @@ async function sendingBasicInformationUserData()
         } else if (res['login']) {
             messageForForm(formBasicInformation,'Логин занят');
         } else {
-            console.log(res['status']);
+            if (res['status']) {
+                notification("linear-gradient(to right, #11998e, #38ef7d)", "Данные успешно сохранены!");
+            } else {
+                notification("linear-gradient(to right, #ff5f6d, #ffc371)", "Ошибка при сохранении данных!");
+            }
         }
 
     } else {
