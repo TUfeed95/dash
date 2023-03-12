@@ -39,16 +39,16 @@ class UserModel extends Model
 	/**
 	 * @throws Exception
 	 */
-	public function updateUserBasicInformation($fromData)
+	public function updateUserBasicInformation($fromData): array
 	{
 		$result = [];
-		$user = (new User($_SESSION['user_id']))->currentUser();
+		$user = new User();
 
-		if (self::getOneRecord('login', $fromData['login'])) {
+		if (self::getOneRecord('login', $fromData['login']) && $user->login != $fromData['login']) {
 			$result['login'] = 'false';
 		}
 
-		if (self::getOneRecord('email', $fromData['email'])) {
+		if (self::getOneRecord('email', $fromData['email']) && $user->email != $fromData['email']) {
 			$result['email'] = 'false';
 		}
 
@@ -56,7 +56,7 @@ class UserModel extends Model
 			return $result;
 		}
 
-		$result['status'] = self::updateRecord(['id' => $user['id']], $fromData);
+		$result['status'] = self::updateRecord(['id' => $user->id], $fromData);
 		return $result;
 	}
 }

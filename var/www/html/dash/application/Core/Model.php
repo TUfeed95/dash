@@ -87,7 +87,7 @@ class Model
 	/**
 	 * @throws Exception
 	 */
-	public function updateRecord($where, $values)
+	public function updateRecord($where, $values): bool
 	{
 		$connection = (ConnectionDB::getInstance())->connection();
 
@@ -109,16 +109,11 @@ class Model
 
 	private function substringPseudoVariables($params, $separator): string
 	{
+		$paramsToString = [];
 		$result = '';
 		foreach ($params as $key => $value) {
-			$result .= $key . ' = :' . $key;
-			if (!array_key_last($params) && !array_key_first($params)) {
-				if ($separator == 'AND') {
-					$result .= sprintf(' %s ', $separator);
-				} else {
-					$result .= sprintf('%s ', $separator);
-				}
-			}
+			$paramsToString[] .= $key . ' = :' . $key;
+			$result = implode($separator, $paramsToString);
 		}
 		return $result;
 	}
