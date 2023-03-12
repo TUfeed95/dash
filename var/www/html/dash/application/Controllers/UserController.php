@@ -1,5 +1,5 @@
 <?php
-
+require_once 'Tool/Tool.php';
 class UserController
 {
 
@@ -16,10 +16,31 @@ class UserController
 	}
 
 
-	public function basicInformation()
+	/**
+	 * @return void
+	 * @throws Exception
+	 */
+	public function basicInformation(): void
 	{
-		$model = new UserModel('users');
-		$view = new UserView($model);
+		if ($_SESSION['auth']) {
+			$model = new UserModel('users');
+
+			// проверка токена
+			if (!Tool::checkCsrfToken(htmlspecialchars($_POST['token']))) {
+				header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
+				exit;
+			}
+			$fromData = [];
+			foreach ($_POST as $key => $value) {
+				$fromData[$key] = htmlspecialchars($value);
+			}
+
+			$view = new UserView($model->updateUserBasicInformation($fromData));
+			$view->response();
+		} else {
+			header('Location: /admin/login/');
+		}
+
 	}
 
 }

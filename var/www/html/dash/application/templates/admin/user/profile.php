@@ -14,36 +14,37 @@
               </div>
               <div class="card-content">
                 <div class="card-body">
-                  <form class="formBasicInformation" method="post">
+                  <form id="formBasicInformation" method="post">
+                    <input type="hidden" name="token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
                     <div class="row">
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="first-name-column">Имя</label>
-                          <input type="text" id="first-name-column" class="form-control" placeholder="Имя" name="fname-column">
+                          <input type="text" id="first-name-column" class="form-control" placeholder="Имя" name="first_name">
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="last-name-column">Фамилия</label>
-                          <input type="text" id="last-name-column" class="form-control" placeholder="Фамилия" name="lname-column">
+                          <input type="text" id="last-name-column" class="form-control" placeholder="Фамилия" name="last_name">
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="email-id-column" class="form-required">E-mail</label>
-                          <input type="email" id="email-id-column" class="form-control" name="email-id-column" value="<?php echo $currentUser['email']?>" placeholder="Email" required>
+                          <input type="email" id="email-id-column" class="form-control" name="email" value="<?php echo $currentUser['email']?>" placeholder="Email" required>
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
-                          <label for="country-floating" class="form-required">Логин</label>
-                          <input type="text" id="login-floating" class="form-control" name="login-floating" value="<?php echo $currentUser['login']?>" placeholder="Логин" required>
+                          <label for="login-floating" class="form-required">Логин</label>
+                          <input type="text" id="login-floating" class="form-control" name="login" value="<?php echo $currentUser['login']?>" placeholder="Логин" required>
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="city-column">Город</label>
-                          <input type="text" id="city-column" class="form-control" placeholder="Город" name="city-column">
+                          <input type="text" id="city-column" class="form-control" placeholder="Город" name="city">
                         </div>
                       </div>
                       <div class="col-12 d-flex justify-content-end">

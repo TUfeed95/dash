@@ -14,6 +14,8 @@ class User
 		$this->id = $id;
 	}
 
+
+
 	public function setLogin()
 	{
 		$model = new UserModel('users');

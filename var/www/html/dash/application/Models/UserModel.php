@@ -11,7 +11,14 @@ class UserModel extends Model
     parent::__construct($tableName);
   }
 
-	public function getUserLogin($column, $param)
+	/**
+	 * Возвращает логин пользователя
+	 * @param $column
+	 * @param $param
+	 * @return false|mixed
+	 * @throws Exception
+	 */
+	public function getUserLogin($column, $param): mixed
 	{
 
 		$connection = (ConnectionDB::getInstance())->connection();
@@ -26,5 +33,30 @@ class UserModel extends Model
 		if ($stmt->rowCount()) {
 			return $stmt->fetch(PDO::FETCH_ASSOC);
 		}
+		return false;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public function updateUserBasicInformation($fromData)
+	{
+		$result = [];
+		$user = (new User($_SESSION['user_id']))->currentUser();
+
+		if (self::getOneRecord('login', $fromData['login'])) {
+			$result['login'] = 'false';
+		}
+
+		if (self::getOneRecord('email', $fromData['email'])) {
+			$result['email'] = 'false';
+		}
+
+		if (!empty($result)) {
+			return $result;
+		}
+
+		$result['status'] = self::updateRecord(['id' => $user['id']], $fromData);
+		return $result;
 	}
 }
