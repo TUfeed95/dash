@@ -54,6 +54,7 @@ class Model
 
     $columns = [];
     $prepareColumns = [];
+	  $query = '';
 
     // выбрасываем исключение, если массив не ассоциативный
     if (array_is_list($params)){
@@ -71,7 +72,7 @@ class Model
     $columnNames = implode(',', $columns); // наименования колонок
     $pseudoVariables = implode(',', $prepareColumns); // псевдопеременные
 
-    $query = "INSERT INTO " . $this->tableName . " (" . $columnNames . ") VALUES (" . $pseudoVariables . ")";
+	  $query = "INSERT INTO " . $this->tableName . " (" . $columnNames . ") VALUES (" . $pseudoVariables . ")";
 
     try {
       $stmt = $connection->prepare($query);
@@ -82,4 +83,43 @@ class Model
       return false;
     }
   }
+
+	/**
+	 * @throws Exception
+	 */
+	public function updateRecord($where, $values)
+	{
+		$connection = (ConnectionDB::getInstance())->connection();
+
+		$setParams = $this->substringPseudoVariables($values, ',');
+		$whereParams = $this->substringPseudoVariables($where, 'AND');
+
+		$query = 'UPDATE ' . $this->tableName . ' SET ' . $setParams . ' WHERE ' . $whereParams;
+		$executeParams = array_merge($where, $values);
+
+		try {
+			$stmt = $connection->prepare($query);
+			$stmt->execute($executeParams);
+			return true;
+		} catch (PDOException $exception) {
+			echo "Произошла ошибка при выполнении запроса: " . $exception->getMessage();
+			return false;
+		}
+	}
+
+	private function substringPseudoVariables($params, $separator): string
+	{
+		$result = '';
+		foreach ($params as $key => $value) {
+			$result .= $key . ' = :' . $key;
+			if (!array_key_last($params) && !array_key_first($params)) {
+				if ($separator == 'AND') {
+					$result .= sprintf(' %s ', $separator);
+				} else {
+					$result .= sprintf('%s ', $separator);
+				}
+			}
+		}
+		return $result;
+	}
 }
