@@ -1,15 +1,19 @@
 <?php
 
 require_once 'Database.php';
+require_once 'ConnectionDB.php';
 
 class Migrations
 {
   const TABLE_MIGRATION_VERSIONS = 'migration_versions';
 
-  public function createTableMigrationVersions(): \PDOStatement|false
+	/**
+	 * @throws Exception
+	 */
+	public function createTableMigrationVersions(): \PDOStatement|false
   {
 	  $connection = (ConnectionDB::getInstance())->connection();
-    // проверям существование таблицы
+    // проверяем существование таблицы
     $checkTableMigrationVersions = Database::checkTable(self::TABLE_MIGRATION_VERSIONS);
     $tableMigrationVersionsExists = $checkTableMigrationVersions->fetch(PDO::FETCH_ASSOC);
     // создаем таблицу, если ее не существует
@@ -29,9 +33,10 @@ class Migrations
     return $checkTableMigrationVersions;
   }
 
-  /**
-   * Получаем миграции
-   */
+	/**
+	 * Получаем миграции
+	 * @throws Exception
+	 */
   public function getMigrationFiles($tableMigrationVersions, $migrationFiles): array
   {
 	  $connection = (ConnectionDB::getInstance())->connection();
@@ -41,7 +46,7 @@ class Migrations
       $nameMigrationFiles[] = basename($migrationFile);
     }
 
-    // если таблица пустая, возращаем весе файлы
+    // если таблица пустая, возвращаем все файлы
     if (!$tableMigrationVersions) {
       return $nameMigrationFiles;
     }
@@ -62,9 +67,10 @@ class Migrations
     return array_diff($nameMigrationFiles, $migrationVersions);
   }
 
-  /**
-   * Выполнение запроса
-   */
+	/**
+	 * Выполнение запроса
+	 * @throws Exception
+	 */
   public function executeQuery($query): bool
   {
 	  $connection = (ConnectionDB::getInstance())->connection();

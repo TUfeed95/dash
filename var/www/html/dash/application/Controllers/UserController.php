@@ -24,12 +24,14 @@ class UserController
 	{
 		if ($_SESSION['auth']) {
 			$model = new UserModel('users');
+			$token = array_shift($_POST);
 
 			// проверка токена
-			if (!Tool::checkCsrfToken(htmlspecialchars($_POST['token']))) {
+			if (!Tool::checkCsrfToken(htmlspecialchars($token))) {
 				header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
 				exit;
 			}
+
 			$fromData = [];
 			foreach ($_POST as $key => $value) {
 				$fromData[$key] = htmlspecialchars($value);
