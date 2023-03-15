@@ -3,25 +3,38 @@
 class View
 {
 
-  protected $model;
-
-  public function __construct($model = null)
+	/**
+	 * @throws Exception
+	 */
+	protected function generateCSRFToken(): void
   {
-    $this->model = $model;
-  }
+		define('LENGTH_RANDOM_BYTES', 35);
 
-  protected function generateCSRFToken(): void
-  {
     try {
-      $_SESSION['csrf_token'] = bin2hex(random_bytes(35));
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(LENGTH_RANDOM_BYTES));
     } catch (Exception $e) {
-      echo "Произошла ошибка при генерации csrf-токена: " . $e->getMessage();
+      throw new Exception("Произошла ошибка при генерации csrf-токена: " . $e->getMessage());
     }
   }
 
-  public function render($template, $data = null): void
+	/**
+	 * @throws Exception
+	 */
+	public function render($template, $data = null): void
   {
+
     $this->generateCSRFToken();
     include $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $template;
   }
+
+	/**
+	 * Ответ на запрос с js
+	 * @param array $result
+	 * @return void
+	 */
+	public function response(array $result): void
+	{
+		header('Content-Type: application/json');
+		echo json_encode($result);
+	}
 }

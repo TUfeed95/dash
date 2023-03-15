@@ -50,6 +50,7 @@ class UserAuthentication
 	 * @param string $login
 	 * @param string $password
 	 * @return array
+	 * @throws Exception
 	 */
 	public function authorization(string $login, string $password): array
 	{

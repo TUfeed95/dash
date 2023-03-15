@@ -30,18 +30,23 @@ if (test != null) {
     })
 }
 
+/**
+ * Всплывающее уведомление
+ * @param styleBackground Цвет фона уведомления
+ * @param message Сообщение
+ */
 function notification(styleBackground, message)
 {
     Toastify({
-        text: message,
-        duration: 3000,
+        text: message, // текст сообщения
+        duration: 3000, // видимость
         newWindow: false,
-        close: false,
-        gravity: "top", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
+        close: false, // кнопка закрытия
+        gravity: "top", // позиция `top` или `bottom`
+        position: "center", // позиция `left`, `center` или `right`
         stopOnFocus: true,
         style: {
-            background: styleBackground,
+            background: styleBackground, // цвет фон
         },
     }).showToast();
 }
@@ -56,20 +61,13 @@ async function sendingBasicInformationUserData()
     if (response.ok) {
         let res = await response.json();
 
-        if (res['email']) {
-            messageForForm(formBasicInformation,'Электронный адрес занят');
-        } else if (res['login']) {
-            messageForForm(formBasicInformation,'Логин занят');
-        } else {
-            if (res['status']) {
-                notification("linear-gradient(to right, #11998e, #38ef7d)", "Данные успешно сохранены!");
-            } else {
-                notification("linear-gradient(to right, #ff5f6d, #ffc371)", "Ошибка при сохранении данных!");
-            }
+        if (!res['status']) {
+            notification("#f3616d", res['message']);
+        } else if (res['status']) {
+            notification("#198754", "Данные успешно сохранены!");
         }
-
     } else {
-        console.log('Произошла ошибка запроса на сервер: ' + response.statusText);
+        notification("#f3616d", `Произошла ошибка запроса на сервер: ${response.statusText}`);
     }
 }
 
@@ -116,10 +114,9 @@ function messageForForm(elementForm, message)
  */
 async function requestFetch(url, formData, method)
 {
-    // перед отправкой данных на сервер необходимо исключить пустые значения формы
     return await fetch(url, {
         method: method,
-        body: removeEmptyFormData(formData),
+        body: formData,
     });
 }
 
