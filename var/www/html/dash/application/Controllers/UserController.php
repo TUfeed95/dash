@@ -59,7 +59,6 @@ class UserController
 				$user->login = $fromData['login'];
 			}
 
-
 			$user->firstname = $fromData['firstname'];
 			$user->lastname = $fromData['lastname'];
 			$user->city = $fromData['city'];
