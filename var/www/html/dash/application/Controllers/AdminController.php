@@ -4,20 +4,22 @@ require_once 'Tool/Tool.php';
 
 class AdminController
 {
-  /**
-   * Страница авторизации пользователя
-   */
+	/**
+	 * Страница авторизации пользователя
+	 * @throws Exception
+	 */
   public function login(): void
   {
-    (new UserView())->render('admin/auth/login.php');
+    (new View())->render('admin/auth/login.php');
   }
 
-  /**
-   * Страница регистрации пользователя
-   */
+	/**
+	 * Страница регистрации пользователя
+	 * @throws Exception
+	 */
   public function register(): void
   {
-    (new UserView())->render('admin/auth/register.php');
+    (new View())->render('admin/auth/register.php');
   }
 
 	/**
@@ -30,23 +32,25 @@ class AdminController
 		header('Location: /admin/login/');
 	}
 
-  /**
-   * Страница админпанели
-   */
+	/**
+	 * Страница админпанели
+	 * @throws Exception
+	 */
   public function index(): void
   {
 		if ($_SESSION['auth']) {
-			(new UserView())->render('admin/index.php');
+			(new View())->render('admin/index.php');
 		} else {
 			header('Location: /admin/login/');
 		}
   }
 
-  /**
-   * Получаем данные авторизации с фронта, 
-   * далее передаем их в модель, из модели получаем ответ о правильности данных и передаем его в представление.
-   * 
-   */
+	/**
+	 * Получаем данные авторизации с фронта,
+	 * далее передаем их в модель, из модели получаем ответ о правильности данных и передаем его в представление.
+	 *
+	 * @throws Exception
+	 */
   public function authorizationData(): void
   {
 		// проверка токена
@@ -59,9 +63,9 @@ class AdminController
     $password = htmlspecialchars($_POST['password']);
 
     $userAuthentication = new UserAuthentication();
-    $view = new UserView($userAuthentication->authorization($login, $password));
+    $view = new View();
 
-    $view->response(); // передаем ответ
+    $view->response($userAuthentication->authorization($login, $password)); // передаем ответ
   }
 
   /**
@@ -83,8 +87,8 @@ class AdminController
     $password = htmlspecialchars($_POST['password']);
 
 	  $userAuthentication = new UserAuthentication();
-    $view = new UserView($userAuthentication->registration($email, $login, $password));
+    $view = new View();
 
-    $view->response();
+    $view->response($userAuthentication->registration($email, $login, $password));
   }
 }

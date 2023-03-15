@@ -20,31 +20,31 @@
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="first-name-column">Имя</label>
-                          <input type="text" id="first-name-column" class="form-control" value="<?php echo $user->firstname ?>" placeholder="Имя" name="firstname">
+                          <input type="text" id="first-name-column" class="form-control" value="<?php echo $data->firstname ?>" placeholder="Имя" name="firstname">
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="last-name-column">Фамилия</label>
-                          <input type="text" id="last-name-column" class="form-control" value="<?php echo $user->lastname ?>" placeholder="Фамилия" name="lastname">
+                          <input type="text" id="last-name-column" class="form-control" value="<?php echo $data->lastname ?>" placeholder="Фамилия" name="lastname">
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="email-id-column" class="form-required">E-mail</label>
-                          <input type="email" id="email-id-column" class="form-control" name="email" value="<?php echo $user->email ?? '' ?>" placeholder="Email" required>
+                          <input type="email" id="email-id-column" class="form-control" name="email" value="<?php echo $data->email ?? '' ?>" placeholder="Email" required>
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="login-floating" class="form-required">Логин</label>
-                          <input type="text" id="login-floating" class="form-control" name="login" value="<?php echo $user->login ?? '' ?>" placeholder="Логин" required>
+                          <input type="text" id="login-floating" class="form-control" name="login" value="<?php echo $data->login ?? '' ?>" placeholder="Логин" required>
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="city-column">Город</label>
-                          <input type="text" id="city-column" class="form-control" value="<?php echo $user->city ?? '' ?>" placeholder="Город" name="city">
+                          <input type="text" id="city-column" class="form-control" value="<?php echo $data->city ?? '' ?>" placeholder="Город" name="city">
                         </div>
                       </div>
                       <div class="col-12 d-flex justify-content-end">

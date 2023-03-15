@@ -14,11 +14,9 @@ require_once realpath(dirname(__FILE__) . '/application/Core/Controller.php');
 require_once realpath(dirname(__FILE__) . '/application/Core/Model.php');
 require_once realpath(dirname(__FILE__) . '/application/Core/View.php');
 
-require_once realpath(dirname(__FILE__) . '/application/Models/UserModel.php');
+require_once realpath(dirname(__FILE__) . '/application/Models/User.php');
 
-require_once realpath(dirname(__FILE__) . '/application/Views/UserView.php');
 
-require_once realpath(dirname(__FILE__) . '/application/Modules/user/User.php');
 
 
 

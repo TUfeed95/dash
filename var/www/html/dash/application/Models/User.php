@@ -10,19 +10,20 @@
  * @property $firstname Имя пользователя
  * @property $city Город пользователя
  */
-class User
+class User extends Model
 {
+
 	/**
-	 * Получаем текущего пользователя в конструкторе
+	 * Задаем таблицу для модели
 	 * @throws Exception
 	 */
 	public function __construct()
 	{
-		$this->currentUser();
+		$this->table = 'users';
 	}
 
 	/**
-	 * Магическим образом получаем имя свойства, возвращаем соответствующий ему метод get
+	 * Магическим образом получаем имя неопределенного свойства, возвращаем соответствующий ему метод get
 	 * @param string $property
 	 * @return void
 	 */
@@ -36,7 +37,8 @@ class User
 	}
 
 	/**
-	 * Магическим образом получаем имя свойства, передаем значение $value и возвращаем соответствующий ему метод set
+	 * Магическим образом получаем имя неопределенного свойства,
+	 * передаем значение $value и возвращаем соответствующий ему метод set
 	 * @param string $property
 	 * @param mixed $value
 	 * @return void
@@ -157,12 +159,11 @@ class User
 	 *
 	 * @throws Exception
 	 */
-  private function currentUser(): void
+  public function currentUser(): void
   {
 		$this->id = $_SESSION['user_id'];
 
-		$model = new UserModel('users');
-		$user = $model->getOneRecord('id', $this->id);
+		$user = $this->getOneRecord('id', $this->id);
 
 		$this->email = $user['email'];
 		$this->login = $user['login'];
@@ -172,12 +173,23 @@ class User
   }
 
 	/**
+	 * Сохранение модели
 	 * @throws Exception
 	 */
-	public function save(): void
+	public function save(): array
 	{
-		$model = new UserModel('users');
-		$model->updateRecord(['id' => $this->id], [
+		return $this->updateRecord(['id' => $this->id], [
+			'login' => $this->login,
+			'email' => $this->email,
+			'lastname' => $this->lastname,
+			'firstname' => $this->firstname,
+			'city' => $this->city,
+		]);
+	}
+
+	public function create()
+	{
+		return $this->addRecord([
 			'login' => $this->login,
 			'email' => $this->email,
 			'lastname' => $this->lastname,
