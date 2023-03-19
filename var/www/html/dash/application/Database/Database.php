@@ -1,5 +1,7 @@
 <?php
-
+namespace Database;
+use PDOStatement;
+use Exception;
 class Database
 {
 	/**

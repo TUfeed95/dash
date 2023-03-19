@@ -1,4 +1,7 @@
 <?php
+namespace Models\user;
+use Core\Model;
+use Exception;
 
 /**
  * Класс пользователя

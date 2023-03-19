@@ -1,5 +1,5 @@
 <?php
-
+namespace Controllers\Tool;
 class Tool
 {
   /**

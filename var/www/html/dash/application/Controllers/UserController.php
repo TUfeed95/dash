@@ -1,4 +1,10 @@
 <?php
+namespace Controllers;
+
+use Exception;
+use Models\User\User;
+use Core\View;
+
 require_once 'Tool/Tool.php';
 
 class UserController

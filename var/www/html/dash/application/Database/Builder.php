@@ -1,5 +1,7 @@
 <?php
-
+namespace Database;
+use PDOStatement;
+use Exception;
 // TODO позже разработать нормальный билдер
 class Builder
 {

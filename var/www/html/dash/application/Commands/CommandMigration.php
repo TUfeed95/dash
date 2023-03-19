@@ -1,6 +1,8 @@
 <?php
-
-require_once '../Database/Migrations.php';
+namespace Commands;
+use DateTime;
+use Exception;
+use Database\Migrations;
 
 class CommandMigration
 {

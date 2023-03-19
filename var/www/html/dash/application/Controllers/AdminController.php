@@ -1,6 +1,10 @@
 <?php
+namespace Controllers;
+use Controllers\Tool\Tool;
+use Core\View;
+use Exception;
+use Auth\UserAuthentication;
 
-require_once 'Tool/Tool.php';
 
 class AdminController
 {

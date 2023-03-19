@@ -1,6 +1,7 @@
 <?php
 
 //require_once 'Controller.php';
+namespace Core;
 
 class Router
 {

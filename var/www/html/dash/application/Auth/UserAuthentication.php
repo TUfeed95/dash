@@ -1,5 +1,10 @@
 <?php
 
+namespace Auth;
+
+use Exception;
+use Core\Model;
+
 class UserAuthentication
 {
 
@@ -14,7 +19,7 @@ class UserAuthentication
 	 */
 	public function registration(string $email, string $login, string $password): array
 	{
-		$model = new Model('users');
+		$model = new User();
 		// результат и ответ для запроса с фронта
 		$result = [];
 

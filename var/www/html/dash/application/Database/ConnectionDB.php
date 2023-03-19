@@ -1,4 +1,8 @@
 <?php
+namespace Database;
+use PDO;
+use PDOException;
+use Exception;
 
 /**
  * Класс подключения к базе данных. Реализовано через паттерн singleton

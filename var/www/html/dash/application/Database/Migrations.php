@@ -1,7 +1,9 @@
 <?php
+namespace Database;
 
-require_once 'Database.php';
-require_once 'ConnectionDB.php';
+use Exception;
+use PDO;
+use PDOException;
 
 class Migrations
 {

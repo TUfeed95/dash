@@ -1,7 +1,12 @@
 <?php
 session_start();
 
+spl_autoload_register(function ($nameClass){
+	//var_dump($nameClass);
+	include dirname(__FILE__) . '/application/' . str_replace("\\", "/", $nameClass) . '.php';
+});
 
+/**
 require_once realpath(dirname(__FILE__) . '/application/Database/Database.php');
 require_once realpath(dirname(__FILE__) . '/application/Database/ConnectionDB.php');
 require_once realpath(dirname(__FILE__) . '/application/Database/Builder.php');
@@ -15,6 +20,7 @@ require_once realpath(dirname(__FILE__) . '/application/Core/Model.php');
 require_once realpath(dirname(__FILE__) . '/application/Core/View.php');
 
 require_once realpath(dirname(__FILE__) . '/application/Models/User.php');
+*/
 
 
 
@@ -27,5 +33,5 @@ ini_set('display_errors', 1);
 $routes = require $_SERVER['DOCUMENT_ROOT'] . '/application/config/routes.php';
 $uri = $_SERVER['REQUEST_URI'];
 
-$router = new Router($routes, $uri);
+$router = new Core\Router($routes, $uri);
 $router->controller();

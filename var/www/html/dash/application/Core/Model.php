@@ -1,4 +1,10 @@
 <?php
+namespace Core;
+use PDOException;
+use PDO;
+use Exception;
+use Database\Database;
+use Database\ConnectionDB;
 
 class Model
 {
