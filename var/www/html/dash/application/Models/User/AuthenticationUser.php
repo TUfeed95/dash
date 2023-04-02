@@ -1,11 +1,10 @@
 <?php
 
-namespace Auth;
+namespace Models\User;
 
 use Exception;
-use Core\Model;
 
-class UserAuthentication
+class AuthenticationUser
 {
 
 	/**
@@ -19,32 +18,28 @@ class UserAuthentication
 	 */
 	public function registration(string $email, string $login, string $password): array
 	{
-		$model = new User();
+		$user = new User();
+		$mapperUser = new MapperUser();
 		// результат и ответ для запроса с фронта
 		$result = [];
 
-		// что бы понять свободен ли e-mail, ищем пользователей у кого есть такой адрес
-		// если пользователь не найден то и e-mail свободен
-		$checkEmail = $model->getOneRecord('email', $email);
-
-		if ($checkEmail) {
+		// свободен ли email
+		if ($mapperUser->getEmail($email)) {
 			return ['email' => true];
 		}
 		$result['email'] = false;
 
-		$checkLogin = $model->getOneRecord('login', $login);
-
-		if ($checkLogin) {
+		// свободен ли логин
+		if ($mapperUser->getLogin($login)) {
 			return ['login' => true];
 		}
 		$result['login'] = false;
 
-		// ключи должны соответствовать именам колонок в таблице
-		$result['status'] = $model->addRecord([
-			'login' => $login,
-			'password' => $password,
-			'email' => $email,
-		]);
+		$user->email = $email;
+		$user->login = $login;
+		$user->password = $password;
+
+		$result['status'] = $mapperUser->create($user);
 
 		return $result;
 	}
@@ -59,16 +54,18 @@ class UserAuthentication
 	 */
 	public function authorization(string $login, string $password): array
 	{
-		$user = (new Model('users'))->getOneRecord('login', $login);
+		$mapperUser = new MapperUser();
+		$user = $mapperUser->getByLogin($login);
 
 		// если пользователь найден по логину, проверяем пароль
-		if ($user && $user['password'] == $password) {
+		if ($user->password == $password) {
 			// сохраняем данные в сессию
-			$_SESSION['user_id'] = $user['id'];
+			$_SESSION['user_id'] = $user->id;
 			$_SESSION['auth'] = true; // пользователь авторизован
 			return ['status' => true];
 		} else {
 			return ['status' => false];
 		}
 	}
+
 }

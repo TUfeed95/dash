@@ -10,21 +10,15 @@ use Exception;
 class ConnectionDB
 {
 
-	const DB_USER = 'root';
-	const DB_USER_PASSWORD = 'root';
-	const DB_NAME = 'dashboard_db';
-	const DB_HOST = 'dash_db';
+	private const DB_USER = 'root';
+	private const DB_USER_PASSWORD = 'root';
+	private const DB_NAME = 'dashboard_db';
+	private const DB_HOST = 'dash_db';
 
 	/**
 	 * @var ConnectionDB|null
 	 */
 	private static ?ConnectionDB $instance = null;
-
-	/**
-	 * Подключение к БД
-	 * @var
-	 */
-	public $connection;
 
 	private function __construct()
 	{
@@ -53,8 +47,7 @@ class ConnectionDB
 			$dsn = sprintf("pgsql:host='%s';port=5432;dbname='%s';user='%s';password='%s'",
 				self::DB_HOST, self::DB_NAME, self::DB_USER, self::DB_USER_PASSWORD);
 
-			$this->connection = new PDO($dsn, options:[PDO::ATTR_PERSISTENT=>true]);
-			return $this->connection;
+			return new PDO($dsn, options:[PDO::ATTR_PERSISTENT=>true]);
 		} catch (PDOException $e) {
 			throw new Exception("Ошибка подключения к базе данных: " . $e->getMessage() . PHP_EOL);
 		}

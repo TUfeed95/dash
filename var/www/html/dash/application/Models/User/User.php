@@ -1,6 +1,5 @@
 <?php
-namespace Models\user;
-use Core\Model;
+namespace Models\User;
 use Exception;
 
 /**
@@ -12,19 +11,10 @@ use Exception;
  * @property $lastname Фамилия пользователя
  * @property $firstname Имя пользователя
  * @property $city Город пользователя
+ * @property $password Пароль пользователя
  */
-class User extends Model
+class User
 {
-
-	/**
-	 * Задаем таблицу для модели
-	 * @throws Exception
-	 */
-	public function __construct()
-	{
-		$this->table = 'users';
-	}
-
 	/**
 	 * Магическим образом получаем имя неопределенного свойства, возвращаем соответствующий ему метод get
 	 * @param string $property
@@ -80,6 +70,21 @@ class User extends Model
 	private function getLogin(): string
 	{
 		return $this->login;
+	}
+
+	/**
+	 * Пароль пользователя
+	 *
+	 * @return string
+	 */
+	private function getPassword(): string
+	{
+		return $this->password;
+	}
+
+	private function setPassword(string $password): void
+	{
+		$this->password = $password;
 	}
 
 	/**
@@ -160,44 +165,13 @@ class User extends Model
 	/**
 	 * Текущий пользователь
 	 *
+	 * @return User Модель пользователя
 	 * @throws Exception
 	 */
-  public function currentUser(): void
-  {
-		$this->id = $_SESSION['user_id'];
-
-		$user = $this->getOneRecord('id', $this->id);
-
-		$this->email = $user['email'];
-		$this->login = $user['login'];
-		$this->lastname = $user['lastname'];
-		$this->firstname = $user['firstname'];
-		$this->city = $user['city'];
-  }
-
-	/**
-	 * Сохранение модели
-	 * @throws Exception
-	 */
-	public function save(): array
+	public function currentUser(): User
 	{
-		return $this->updateRecord(['id' => $this->id], [
-			'login' => $this->login,
-			'email' => $this->email,
-			'lastname' => $this->lastname,
-			'firstname' => $this->firstname,
-			'city' => $this->city,
-		]);
+		$mapperUser = new MapperUser();
+		return $mapperUser->getById($_SESSION['user_id']);
 	}
 
-	public function create()
-	{
-		return $this->addRecord([
-			'login' => $this->login,
-			'email' => $this->email,
-			'lastname' => $this->lastname,
-			'firstname' => $this->firstname,
-			'city' => $this->city,
-		]);
-	}
 }

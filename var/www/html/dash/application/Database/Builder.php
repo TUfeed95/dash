@@ -22,15 +22,11 @@ class Builder
 
 	/**
 	 * Оператор выборки данных
-	 * @param $columns
+	 * @param string $columns
 	 * @return $this
 	 */
-	public function select($columns = null)
+	public function select(string $columns = '*')
 	{
-		if (!$columns) {
-			$columns = '*';
-		}
-
 		$this->select = 'SELECT ' . $columns;
 		return $this;
 	}
@@ -50,7 +46,7 @@ class Builder
 	 * Параметры получения выборки
 	 * @throws Exception
 	 */
-	public function where($params = [])
+	public function where(array $params = [])
 	{
 		// выбрасываем исключение, если массив не ассоциативный
 		if (array_is_list($params)){

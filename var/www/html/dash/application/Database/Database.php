@@ -1,9 +1,15 @@
 <?php
 namespace Database;
+
 use PDOStatement;
 use Exception;
+
 class Database
 {
+	public function __construct()
+	{
+
+	}
 	/**
 	 * Существует ли таблица.
 	 * Если таблица не существует то, возвращает пустое значение (в прямом смысле этого слова).
@@ -13,7 +19,7 @@ class Database
 	 */
   public static function checkTable(string $tableName): bool|PDOStatement
   {
-	  $connection = (ConnectionDB::getInstance())->connection();
+	  $connection = ConnectionDB::getInstance()->connection();
     $query = "SELECT EXISTS (SELECT FROM information_schema.tables WHERE TABLE_NAME = '" . $tableName . "')";
     $stmt = $connection->prepare($query);
     $stmt->execute();
@@ -21,8 +27,6 @@ class Database
   }
 
 	/**
-	 * Для того, что бы организовать простую ОРМ и в цепочке вызова методов не было лишних функций,
-	 * возвращаем объект класса ORM
 	 * @return Builder
 	 */
 	public function createRequest(): Builder

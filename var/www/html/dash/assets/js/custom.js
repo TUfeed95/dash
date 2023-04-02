@@ -64,7 +64,7 @@ async function sendingBasicInformationUserData()
         if (!res['status']) {
             notification("#f3616d", res['message']);
         } else if (res['status']) {
-            notification("#198754", "Данные успешно сохранены!");
+            notification("#198754", res['message']);
         }
     } else {
         notification("#f3616d", `Произошла ошибка запроса на сервер: ${response.statusText}`);

@@ -2,10 +2,11 @@
 namespace Controllers;
 
 use Exception;
+use Models\User\MapperUser;
 use Models\User\User;
 use Core\View;
+use Controllers\Tool\Tool;
 
-require_once 'Tool/Tool.php';
 
 class UserController
 {
@@ -17,9 +18,8 @@ class UserController
 	public function index(): void
 	{
 		if ($_SESSION['auth']) {
-			$user = new User();
-			$user->currentUser();
-			(new View())->render('admin/user/profile.php', $user);
+			$currentUser = (new User())->currentUser();
+			(new View())->render('admin/user/profile.php', $currentUser);
 		} else {
 			header('Location: /admin/login/');
 		}
@@ -32,9 +32,9 @@ class UserController
 	public function basicInformation(): void
 	{
 		if ($_SESSION['auth']) {
-			$user = new User();
+			$user = (new User())->currentUser();
+			$mapperUser = new MapperUser();
 			$view = new View();
-			$user->currentUser();
 			$token = array_shift($_POST);
 
 			// проверка токена
@@ -48,17 +48,14 @@ class UserController
 				$fromData[$key] = htmlspecialchars($value);
 			}
 
-			$checkEmail = $user->checkModelAttribute(['email' => $fromData['email']]);
-			$checkLogin = $user->checkModelAttribute(['login' => $fromData['login']]);
-
-			if ($checkEmail && $user->email !== $fromData['email']) {
+			if ($mapperUser->getEmail($fromData['email']) && $user->email !== $fromData['email']) {
 				$view->response(['status' => false, 'message' => 'E-mail занят. Укажите другой.']);
 				return;
 			} else {
 				$user->email = $fromData['email'];
 			}
 
-			if ($checkLogin && $user->login !== $fromData['login']) {
+			if ($mapperUser->getlogin($fromData['login']) && $user->login !== $fromData['login']) {
 				$view->response(['status' => false, 'message' => 'Логин занят. Придумайте другой.']);
 				return;
 			} else {
@@ -69,8 +66,11 @@ class UserController
 			$user->lastname = $fromData['lastname'];
 			$user->city = $fromData['city'];
 
-			$view = new View();
-			$view->response($user->save());
+			if ($mapperUser->update($user)) {
+				$view->response(['status' => true, 'message' => 'Изменения сохранены.']);
+			} else {
+				$view->response(['status' => false, 'message' => 'Ошибка сохранения.']);
+			}
 
 		} else {
 			header('Location: /admin/login/');

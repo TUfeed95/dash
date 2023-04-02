@@ -1,5 +1,6 @@
 <?php
 namespace Core;
+
 use PDOException;
 use PDO;
 use Exception;
@@ -22,16 +23,14 @@ class Model
 	protected array $result;
 
 	/**
-	 * Возвращает одну запись из таблицы
+	 * Возвращает одну запись из таблицы по заданным параметрам
 	 *
-	 * @param string $column Имя поля по которому отбирать запись
-	 * @param string $value Значение по которому отбирать запись
+	 * @param array $params Массив параметров
 	 * @throws Exception
 	 */
-  public function getOneRecord(string $column, string $value)
+  protected function getOneRecord(array $params)
   {
 		$db = new Database();
-	  $params = [$column => $value];
     
     try {
 	    $stmt = $db->createRequest()
@@ -46,7 +45,6 @@ class Model
     // по идее строк не может быть больше одной
     if ($stmt->rowCount()) {
 	    return $stmt->fetch(PDO::FETCH_ASSOC);
-
     } else {
       return false;
     }
@@ -59,9 +57,9 @@ class Model
    * @param array $params Ассоциативный массив где: key = имя колонки, а value = содержимое колонки
    * @throws Exception
    */
-  public function addRecord(array $params): array
+  protected function addRecord(array $params): array
   {
-	  $connection = (ConnectionDB::getInstance())->connection();
+	  $connection = ConnectionDB::getInstance()->connection();
 
     $columns = [];
     $prepareColumns = [];
@@ -99,9 +97,9 @@ class Model
 	 * @return array Возврат массива со статусом ['status' => true/false]
 	 * @throws Exception
 	 */
-	public function updateRecord($where, $values): array
+	protected function updateRecord(array $where, array $values): array
 	{
-		$connection = (ConnectionDB::getInstance())->connection();
+		$connection = ConnectionDB::getInstance()->connection();
 
 		$setParams = $this->substringPseudoVariables($values, ',');
 		$whereParams = $this->substringPseudoVariables($where, 'AND');
@@ -121,7 +119,7 @@ class Model
 	}
 
 
-	function checkModelAttribute($params): bool
+	protected function checkModelAttribute(array $params): bool
 	{
 		$db = new Database();
 

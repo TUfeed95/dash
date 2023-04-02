@@ -3,7 +3,7 @@ namespace Controllers;
 use Controllers\Tool\Tool;
 use Core\View;
 use Exception;
-use Auth\UserAuthentication;
+use Models\User\AuthenticationUser;
 
 
 class AdminController
@@ -66,7 +66,7 @@ class AdminController
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['password']);
 
-    $userAuthentication = new UserAuthentication();
+    $userAuthentication = new AuthenticationUser();
     $view = new View();
 
     $view->response($userAuthentication->authorization($login, $password)); // передаем ответ
@@ -90,7 +90,7 @@ class AdminController
     $login = htmlspecialchars($_POST['login']);
     $password = htmlspecialchars($_POST['password']);
 
-	  $userAuthentication = new UserAuthentication();
+	  $userAuthentication = new AuthenticationUser();
     $view = new View();
 
     $view->response($userAuthentication->registration($email, $login, $password));
