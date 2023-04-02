@@ -39,7 +39,7 @@ class Mapper
 		$connection = ConnectionDB::getInstance()->connection();
 		$stmt = $connection->prepare($query);
 		$stmt->execute($params);
-
+		$stmt->closeCursor();
 		if (!empty($stmt)) {
 			return $stmt->fetchObject($stdClass);
 		}
@@ -59,7 +59,7 @@ class Mapper
 
 		$stmt = $connection->prepare($query);
 		$stmt->execute($params);
-
+		$stmt->closeCursor();
 		if (!empty($stmt)) {
 			return $stmt->fetch(PDO::FETCH_ASSOC);
 		}
