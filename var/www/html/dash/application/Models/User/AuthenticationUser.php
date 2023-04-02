@@ -19,7 +19,7 @@ class AuthenticationUser
 	public function registration(string $email, string $login, string $password): array
 	{
 		$user = new User();
-		$mapperUser = new MapperUser();
+		$mapperUser = new DataMapperUser();
 		// результат и ответ для запроса с фронта
 		$result = [];
 
@@ -54,7 +54,7 @@ class AuthenticationUser
 	 */
 	public function authorization(string $login, string $password): array
 	{
-		$mapperUser = new MapperUser();
+		$mapperUser = new DataMapperUser();
 		$user = $mapperUser->getByLogin($login);
 
 		// если пользователь найден по логину, проверяем пароль

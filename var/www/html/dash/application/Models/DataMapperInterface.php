@@ -2,7 +2,7 @@
 
 namespace Models;
 
-interface MapperInterface
+interface DataMapperInterface
 {
 	public function create($model);
 	public function update($model);

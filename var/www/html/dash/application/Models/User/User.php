@@ -170,7 +170,7 @@ class User
 	 */
 	public function currentUser(): User
 	{
-		$mapperUser = new MapperUser();
+		$mapperUser = new DataMapperUser();
 		return $mapperUser->getById($_SESSION['user_id']);
 	}
 

@@ -7,7 +7,7 @@ use PDO;
 use PDOException;
 use Exception;
 
-class Mapper
+class DataMapper
 {
 	/**
 	 * @param string $query SQL запрос

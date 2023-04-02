@@ -2,7 +2,7 @@
 namespace Controllers;
 
 use Exception;
-use Models\User\MapperUser;
+use Models\User\DataMapperUser;
 use Models\User\User;
 use Core\View;
 use Controllers\Tool\Tool;
@@ -33,7 +33,7 @@ class UserController
 	{
 		if ($_SESSION['auth']) {
 			$user = (new User())->currentUser();
-			$mapperUser = new MapperUser();
+			$mapperUser = new DataMapperUser();
 			$view = new View();
 			$token = array_shift($_POST);
 

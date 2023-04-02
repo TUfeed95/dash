@@ -2,15 +2,11 @@
 
 namespace Models\User;
 
-use Models\Mapper;
-use Models\MapperInterface;
-use Database\ConnectionDB;
-
-use PDO;
+use Models\DataMapper;
+use Models\DataMapperInterface;
 use Exception;
-use PDOException;
 
-class MapperUser extends Mapper implements MapperInterface
+class DataMapperUser extends DataMapper implements DataMapperInterface
 {
 	/**
 	 * Создание пользователя
