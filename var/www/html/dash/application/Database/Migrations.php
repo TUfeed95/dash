@@ -4,6 +4,7 @@ namespace Database;
 use Exception;
 use PDO;
 use PDOException;
+use PDOStatement;
 
 class Migrations
 {
@@ -12,11 +13,11 @@ class Migrations
 	/**
 	 * @throws Exception
 	 */
-	public function createTableMigrationVersions(): \PDOStatement|false
+	public function createTableMigrationVersions(): PDOStatement|false
   {
 	  $connection = ConnectionDB::getInstance()->connection();
     // проверяем существование таблицы
-    $checkTableMigrationVersions = Database::checkTable(self::TABLE_MIGRATION_VERSIONS);
+    $checkTableMigrationVersions = self::checkTable(self::TABLE_MIGRATION_VERSIONS);
     $tableMigrationVersionsExists = $checkTableMigrationVersions->fetch(PDO::FETCH_ASSOC);
     // создаем таблицу, если ее не существует
     if (!$tableMigrationVersionsExists['exists']) {
@@ -85,4 +86,20 @@ class Migrations
       return false;
     }
   }
+
+	/**
+	 * Существует ли таблица.
+	 * Если таблица не существует то, возвращает пустое значение (в прямом смысле этого слова).
+	 * Иначе возвращает 1.
+	 * @param string $tableName Имя таблицы
+	 * @throws Exception
+	 */
+	public static function checkTable(string $tableName): bool|PDOStatement
+	{
+		$connection = ConnectionDB::getInstance()->connection();
+		$query = "SELECT EXISTS (SELECT FROM information_schema.tables WHERE TABLE_NAME = '" . $tableName . "')";
+		$stmt = $connection->prepare($query);
+		$stmt->execute();
+		return $stmt;
+	}
 }

@@ -63,9 +63,8 @@ class AuthenticationUser
 			$_SESSION['user_id'] = $user->id;
 			$_SESSION['auth'] = true; // пользователь авторизован
 			return ['status' => true];
-		} else {
-			return ['status' => false];
 		}
+		return ['status' => false];
 	}
 
 }

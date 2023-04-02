@@ -7,7 +7,7 @@ use Exception;
 /**
  * Класс подключения к базе данных. Реализовано через паттерн singleton
  */
-class ConnectionDB
+final class ConnectionDB
 {
 
 	private const DB_USER = 'root';
@@ -22,6 +22,11 @@ class ConnectionDB
 
 	private function __construct()
 	{
+	}
+
+	private function __clone()
+	{
+
 	}
 
 	/**

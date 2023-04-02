@@ -2,6 +2,7 @@
 
 namespace Models\User;
 
+use Models\Mapper;
 use Models\MapperInterface;
 use Database\ConnectionDB;
 
@@ -9,49 +10,37 @@ use PDO;
 use Exception;
 use PDOException;
 
-class MapperUser implements MapperInterface
+class MapperUser extends Mapper implements MapperInterface
 {
 	/**
+	 * Создание пользователя
 	 * @throws Exception
 	 */
 	public function create($model): bool
 	{
-		$connection = ConnectionDB::getInstance()->connection();
-
 		// удаление пустых элементов
 		$params = array_diff((array) $model, array(null, 'id'));
 
 		$paramsConverting = self::convertingArrayToColumnNamesAndPseudoVariables($params);
 
 		$query = "INSERT INTO users (" . $paramsConverting->columnNames . ") VALUES (" . $paramsConverting->pseudoVariables . ")";
+		$this->requestExecute($query, $params);
 
-		try {
-			$stmt = $connection->prepare($query);
-			$stmt->execute($params);
-		} catch (PDOException $exception) {
-			throw new PDOException("Произошла ошибка при выполнении запроса: " . $exception->getMessage());
-		}
 		return true;
 	}
 
 	/**
+	 * Обновление пользователя
 	 * @throws Exception
 	 */
 	public function update($model): bool
 	{
-		$connection = ConnectionDB::getInstance()->connection();
-
 		$params = (array) $model;
 		$paramsConverting = self::substringPseudoVariables($params, ',');
 
 		$query = 'UPDATE users SET ' . $paramsConverting . ' WHERE id = ' . $model->id;
+		$this->requestExecute($query, $params);
 
-		try {
-			$stmt = $connection->prepare($query);
-			$stmt->execute($params);
-		} catch (PDOException $exception) {
-			throw new PDOException("Произошла ошибка при выполнении запроса: " . $exception->getMessage());
-		}
 		return true;
 	}
 
@@ -64,19 +53,11 @@ class MapperUser implements MapperInterface
 	 * Возвращаем пользователя по его id
 	 * @throws Exception
 	 */
-	public function getById($id)
+	public function getById($id): bool|User
 	{
 		if (!empty($id)) {
-			$connection = ConnectionDB::getInstance()->connection();
-
-			$query = "SELECT * FROM users WHERE id = '" . $id . "'";
-			$stmt = $connection->prepare($query);
-			$stmt->execute();
-
-			if (!empty($stmt)) {
-				return $stmt->fetchObject('Models\User\User');
-			}
-			return $stmt;
+			$query = "SELECT * FROM users WHERE id = :id";
+			return $this->requestExecuteAndReturnFetchObject('Models\User\User', $query, ['id' => $id]);
 		} else {
 			throw new Exception("Переменная id пустая.");
 		}
@@ -92,16 +73,8 @@ class MapperUser implements MapperInterface
 	public function getByLogin(string $login): bool|User
 	{
 		if (!empty($login)) {
-			$connection = ConnectionDB::getInstance()->connection();
-
-			$query = "SELECT * FROM users WHERE login = '" . $login . "'";
-			$stmt = $connection->prepare($query);
-			$stmt->execute();
-
-			if (!empty($stmt)) {
-				return $stmt->fetchObject('Models\User\User');
-			}
-			return $stmt;
+			$query = "SELECT * FROM users WHERE login = :login";
+			return $this->requestExecuteAndReturnFetchObject('Models\User\User', $query, ['login' => $login]);
 		} else {
 			throw new Exception("Переменная email пустая.");
 		}
@@ -113,16 +86,8 @@ class MapperUser implements MapperInterface
 	public function getEmail($email)
 	{
 		if (!empty($email)) {
-			$connection = ConnectionDB::getInstance()->connection();
-
-			$query = "SELECT email FROM users WHERE email = '$email'";
-			$stmt = $connection->prepare($query);
-			$stmt->execute();
-
-			if (!empty($stmt)) {
-				return $stmt->fetch(PDO::FETCH_ASSOC);
-			}
-			return $stmt;
+			$query = "SELECT email FROM users WHERE email = :email";
+			return $this->requestExecuteAndReturnRecord($query, ['email' => $email]);
 		} else {
 			throw new Exception("Переменная email пустая.");
 		}
@@ -134,16 +99,8 @@ class MapperUser implements MapperInterface
 	public function getLogin($login)
 	{
 		if (!empty($login)) {
-			$connection = ConnectionDB::getInstance()->connection();
-
-			$query = "SELECT login FROM users WHERE login = '$login'";
-			$stmt = $connection->prepare($query);
-			$stmt->execute();
-
-			if (!empty($stmt)) {
-				return $stmt->fetch(PDO::FETCH_ASSOC);
-			}
-			return $stmt;
+			$query = "SELECT login FROM users WHERE login = :login";
+			return $this->requestExecuteAndReturnRecord($query, ['login' => $login]);
 		} else {
 			throw new Exception("Переменная login пустая.");
 		}
@@ -175,7 +132,7 @@ class MapperUser implements MapperInterface
 		$columnNames = implode(',', $columns); // наименования колонок
 		$pseudoVariables = implode(',', $prepareColumns); // псевдопеременные
 
-		return (object) ['columnsNames' => $columnNames, 'pseudoVariables' => $pseudoVariables];
+		return (object) ['columnNames' => $columnNames, 'pseudoVariables' => $pseudoVariables];
 	}
 
 	/**
