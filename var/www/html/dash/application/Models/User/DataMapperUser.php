@@ -63,10 +63,10 @@ class DataMapperUser extends DataMapper implements DataMapperInterface
 	 * Возвращаем пользователя по его логину
 	 *
 	 * @param string $login Логин пользователя
-	 * @return bool|User Объект пользователя или false
+	 * @return User Объект пользователя
 	 * @throws Exception
 	 */
-	public function getByLogin(string $login): bool|User
+	public function getByLogin(string $login): User
 	{
 		if (!empty($login)) {
 			$query = "SELECT * FROM users WHERE login = :login";

@@ -37,13 +37,15 @@ class DataMapper
 	protected function requestExecuteAndReturnFetchObject(string $stdClass, string $query, array $params)
 	{
 		$connection = ConnectionDB::getInstance()->connection();
+		$object = '';
 		$stmt = $connection->prepare($query);
 		$stmt->execute($params);
-		$stmt->closeCursor();
+
 		if (!empty($stmt)) {
-			return $stmt->fetchObject($stdClass);
+			$object = $stmt->fetchObject($stdClass);
 		}
-		return $stmt;
+		$stmt->closeCursor();
+		return $object;
 	}
 
 	/**
@@ -59,10 +61,11 @@ class DataMapper
 
 		$stmt = $connection->prepare($query);
 		$stmt->execute($params);
-		$stmt->closeCursor();
+
 		if (!empty($stmt)) {
 			return $stmt->fetch(PDO::FETCH_ASSOC);
 		}
-		return $stmt;
+		$stmt->closeCursor();
+		return false;
 	}
 }
