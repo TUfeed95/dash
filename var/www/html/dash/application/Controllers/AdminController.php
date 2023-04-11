@@ -4,9 +4,11 @@ use Controllers\Tool\Tool;
 use Core\View;
 use Exception;
 use Models\User\AuthenticationUser;
+use Models\User\User;
+use Views\User\UserView;
 
 
-class AdminController
+class AdminController extends BaseController
 {
 	/**
 	 * Страница авторизации пользователя
@@ -14,7 +16,7 @@ class AdminController
 	 */
   public function login(): void
   {
-    (new View())->render('admin/auth/login.php');
+    (new View())->render('admin/auth/login.php', 'admin/auth/layout.php');
   }
 
 	/**
@@ -23,7 +25,7 @@ class AdminController
 	 */
   public function register(): void
   {
-    (new View())->render('admin/auth/register.php');
+    (new View())->render('admin/auth/register.php', 'admin/auth/layout.php');
   }
 
 	/**
@@ -42,11 +44,17 @@ class AdminController
 	 */
   public function index(): void
   {
-		if ($_SESSION['auth']) {
-			(new View())->render('admin/index.php');
-		} else {
-			header('Location: /admin/login/');
-		}
+	  $this->isCurrentUserLoggedIn();
+
+	  $currentUser = (new User())->currentUser();
+	  $data = [
+			'title' => 'Информационная панель',
+		  'currentUser' => $currentUser,
+	  ];
+
+	  $userView = new View();
+		$userView->render(content: 'admin/index.php', data: $data);
+
   }
 
 	/**

@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>404 - Упс! Страница не найдена.</title>
-    <link rel="stylesheet" href="../../assets/css/main/app.css" />
-    <link rel="stylesheet" href="../../assets/css/pages/error.css" />
+    <link rel="stylesheet" href="/assets/css/main/app.css" />
+    <link rel="stylesheet" href="/assets/css/pages/error.css" />
     <link
       rel="shortcut icon"
-      href="../../assets/images/logo/favicon.svg"
+      href="/assets/images/logo/favicon.svg"
       type="image/x-icon"
     />
     <link
       rel="shortcut icon"
-      href="../../assets/images/logo/favicon.png"
+      href="/assets/images/logo/favicon.png"
       type="image/png"
     />
   </head>
@@ -25,11 +25,11 @@
           <div class="text-center">
             <img
               class="img-error"
-              src="../../assets/images/samples/error-404.svg"
+              src="/assets/images/samples/error-404.svg"
               alt="Not Found"/>
             <h1 class="error-title">Упс!</h1>
             <p class="fs-5 text-gray-600">
-            Страница <? print_r($query['path']); ?> которую вы ищете, не найдена.
+              Страница, <b><?= $query['path']; ?></b>, которую вы ищете, не найдена.
             </p>
             <a href="/" class="btn btn-lg btn-outline-primary mt-3">На главную</a>
           </div>

@@ -41,7 +41,7 @@ class Router
         return;
       }
     }
-    require $_SERVER['DOCUMENT_ROOT'] . '/application/templates/404.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/application/templates/404.php';
   }
 
   /**

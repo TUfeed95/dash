@@ -47,6 +47,7 @@ class DataMapperUser extends DataMapper implements DataMapperInterface
 
 	/**
 	 * Возвращаем пользователя по его id
+	 * @return bool|User Объект пользователя
 	 * @throws Exception
 	 */
 	public function getById($id): bool|User
@@ -63,10 +64,10 @@ class DataMapperUser extends DataMapper implements DataMapperInterface
 	 * Возвращаем пользователя по его логину
 	 *
 	 * @param string $login Логин пользователя
-	 * @return User Объект пользователя
+	 * @return bool|User Объект пользователя
 	 * @throws Exception
 	 */
-	public function getByLogin(string $login): User
+	public function getByLogin(string $login): bool|User
 	{
 		if (!empty($login)) {
 			$query = "SELECT * FROM users WHERE login = :login";

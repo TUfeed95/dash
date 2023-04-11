@@ -1,8 +1,7 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/application/templates/admin/header.php'?>
 
-	<div class="content-wrapper container">
+
 		<div class="page-heading">
-			<h3>Профиль пользователя</h3>
+			<h3><?= $title; ?></h3>
 		</div>
     <div class="page-content">
       <section id="multiple-column-form">
@@ -20,31 +19,31 @@
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="first-name-column">Имя</label>
-                          <input type="text" id="first-name-column" class="form-control" value="<?php echo $data->firstname ?>" placeholder="Имя" name="firstname">
+                          <input type="text" id="first-name-column" class="form-control" value="<?= $currentUser->firstname ?>" placeholder="Имя" name="firstname">
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="last-name-column">Фамилия</label>
-                          <input type="text" id="last-name-column" class="form-control" value="<?php echo $data->lastname ?>" placeholder="Фамилия" name="lastname">
+                          <input type="text" id="last-name-column" class="form-control" value="<?= $currentUser->lastname ?>" placeholder="Фамилия" name="lastname">
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="email-id-column" class="form-required">E-mail</label>
-                          <input type="email" id="email-id-column" class="form-control" name="email" value="<?php echo $data->email ?? '' ?>" placeholder="Email" required>
+                          <input type="email" id="email-id-column" class="form-control" name="email" value="<?= $currentUser->email ?? '' ?>" placeholder="Email" required>
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="login-floating" class="form-required">Логин</label>
-                          <input type="text" id="login-floating" class="form-control" name="login" value="<?php echo $data->login ?? '' ?>" placeholder="Логин" required>
+                          <input type="text" id="login-floating" class="form-control" name="login" value="<?= $currentUser->login ?? '' ?>" placeholder="Логин" required>
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="form-group">
                           <label for="city-column">Город</label>
-                          <input type="text" id="city-column" class="form-control" value="<?php echo $data->city ?? '' ?>" placeholder="Город" name="city">
+                          <input type="text" id="city-column" class="form-control" value="<?= $currentUser->city ?? '' ?>" placeholder="Город" name="city">
                         </div>
                       </div>
                       <div class="col-12 d-flex justify-content-end">
@@ -61,6 +60,3 @@
         </div>
       </section>
     </div>
-	</div>
-
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/application/templates/admin/footer.php'?>

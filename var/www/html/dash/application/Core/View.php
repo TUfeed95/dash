@@ -1,6 +1,8 @@
 <?php
 namespace Core;
 use Exception;
+use HttpException;
+
 class View
 {
 
@@ -19,16 +21,6 @@ class View
   }
 
 	/**
-	 * @throws Exception
-	 */
-	public function render($template, $data = null): void
-  {
-
-    $this->generateCSRFToken();
-    include $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $template;
-  }
-
-	/**
 	 * Ответ на запрос с js
 	 * @param array $result
 	 * @return void
@@ -38,4 +30,37 @@ class View
 		header('Content-Type: application/json');
 		echo json_encode($result);
 	}
+
+	/**
+	 * @throws Exception
+	 */
+	public function renderContent($template, $data = []): bool|string
+	{
+		$pathTemplate = $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $template;
+		ob_start();
+		if (file_exists($pathTemplate)) {
+			extract($data);
+			require $pathTemplate;
+		} else {
+			echo "Возникла ошибка во время рендеринга контента.";
+		}
+		return ob_get_clean();
+	}
+
+	/**
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	public function render($content, $template ='layout.php', $data = []): void
+	{
+		$this->generateCSRFToken();
+
+		$data['content'] = $this->renderContent($content, $data);
+
+		extract($data);
+
+		include $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $template;
+	}
+
 }
