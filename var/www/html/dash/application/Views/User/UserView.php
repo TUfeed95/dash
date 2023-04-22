@@ -3,9 +3,13 @@
 namespace Views\User;
 
 use Core\View;
-use Exception;
-use Models\User\User;
 
 class UserView extends View
 {
+
+	public function __construct($title, $template)
+	{
+		$this->title = $title;
+		$this->layout = $template;
+	}
 }

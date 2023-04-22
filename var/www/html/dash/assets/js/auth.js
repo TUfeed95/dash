@@ -68,7 +68,7 @@ async function sendingAuthorizationData()
   if (response.ok){
     let res = await response.json();
     if (res['status']) {
-      window.location.href = '/admin/index/';
+      window.location.href = '/admin/';
     } else {
       messageForForm(formAuthorization,'Неверный логин или пароль.');
     }

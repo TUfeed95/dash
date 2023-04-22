@@ -73,7 +73,7 @@ class DataMapperUser extends DataMapper implements DataMapperInterface
 			$query = "SELECT * FROM users WHERE login = :login";
 			return $this->requestExecuteAndReturnFetchObject('Models\User\User', $query, ['login' => $login]);
 		} else {
-			throw new Exception("Переменная email пустая.");
+			throw new Exception("Переменная login пустая.");
 		}
 	}
 

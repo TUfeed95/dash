@@ -1,10 +1,10 @@
 <?php
 namespace Controllers;
 
+use Core\View;
 use Exception;
 use Models\User\DataMapperUser;
 use Models\User\User;
-use Core\View;
 use Controllers\Tool\Tool;
 use Views\User\UserView;
 
@@ -21,8 +21,11 @@ class UserController extends BaseController
 		$this->isCurrentUserLoggedIn();
 
 		$currentUser = (new User())->currentUser();
-		$userView = new View();
-		$userView->render(content: 'admin/user/profile.php', data: ['title' => 'Профиль пользователя', 'currentUser' => $currentUser]);
+
+		$userView = new UserView('Профиль пользователя', 'layout.php');
+		$basicInformationForm = $userView->renderContent('admin/user/basicInformationForm.php', ['currentUser' => $currentUser]);
+		$userView->renderContent('admin/user/profile.php', ['basicInformationForm' => $basicInformationForm]);
+		$userView->render();
 	}
 
 	/**
@@ -72,7 +75,6 @@ class UserController extends BaseController
 		} else {
 			$view->response(['status' => false, 'message' => 'Ошибка сохранения.']);
 		}
-
 	}
 
 }

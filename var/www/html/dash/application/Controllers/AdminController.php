@@ -1,10 +1,9 @@
 <?php
 namespace Controllers;
 use Controllers\Tool\Tool;
-use Core\View;
 use Exception;
 use Models\User\AuthenticationUser;
-use Models\User\User;
+use Core\View;
 use Views\User\UserView;
 
 
@@ -16,7 +15,9 @@ class AdminController extends BaseController
 	 */
   public function login(): void
   {
-    (new View())->render('admin/auth/login.php', 'admin/auth/layout.php');
+	  $userView = new UserView('Регистрация', 'admin/auth/layout.php');
+	  $userView->renderContent('admin/auth/login.php');
+	  $userView->render();
   }
 
 	/**
@@ -25,7 +26,9 @@ class AdminController extends BaseController
 	 */
   public function register(): void
   {
-    (new View())->render('admin/auth/register.php', 'admin/auth/layout.php');
+	  $userView = new UserView('Регистрация', 'admin/auth/layout.php');
+		$userView->renderContent('admin/auth/register.php');
+	  $userView->render();
   }
 
 	/**
@@ -45,15 +48,13 @@ class AdminController extends BaseController
   public function index(): void
   {
 	  $this->isCurrentUserLoggedIn();
-
-	  $currentUser = (new User())->currentUser();
 	  $data = [
 			'title' => 'Информационная панель',
-		  'currentUser' => $currentUser,
 	  ];
 
-	  $userView = new View();
-		$userView->render(content: 'admin/index.php', data: $data);
+	  $userView = new UserView('Информационная панель', 'layout.php');
+	  $userView->renderContent('admin/index.php', $data);
+	  $userView->render();
 
   }
 
