@@ -10,7 +10,7 @@ class View
 
 	public $title;
 	public $content;
-	public $layout;
+	public $templateLayout;
 
 	/**
 	 * Ответ на запрос с js
@@ -45,7 +45,7 @@ class View
 
 		if (file_exists($templatePath)) {
 			extract($data);
-			require $templatePath;
+			include $templatePath;
 			$this->content = ob_get_contents();
 		}
 
@@ -59,15 +59,15 @@ class View
 	 */
 	public function render()
 	{
-		$layout = $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $this->layout;
+		$templatePath = $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $this->templateLayout;
 
 		$data['title'] = $this->title;
 		$data['content'] = $this->content;
 		$data['currentUser'] = (new User())->currentUser();
 
-		if (file_exists($layout)) {
+		if (file_exists($templatePath)) {
 			extract($data);
-			include $layout;
+			include $templatePath;
 		}
 	}
 

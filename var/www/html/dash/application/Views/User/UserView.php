@@ -10,6 +10,6 @@ class UserView extends View
 	public function __construct($title, $template)
 	{
 		$this->title = $title;
-		$this->layout = $template;
+		$this->templateLayout = $template;
 	}
 }
