@@ -71,9 +71,4 @@ class View
 		}
 	}
 
-	public function renderForm($templateForm)
-	{
-		$this->generateCSRFToken();
-
-	}
 }
