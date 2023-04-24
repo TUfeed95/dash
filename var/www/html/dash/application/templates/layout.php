@@ -108,12 +108,12 @@
 							</a>
 						</li>
 						<li class="menu-item">
-							<a href="" class="menu-link">
+							<a href="/admin/tasks/" class="menu-link">
 								<span>Задачи</span>
 							</a>
 						</li>
 						<li class="menu-item">
-							<a href="" class="menu-link">
+							<a href="/admin/projects/" class="menu-link">
 								<span>Проекты</span>
 							</a>
 						</li>
@@ -122,7 +122,12 @@
 			</nav>
 		</header>
     <div class="content-wrapper container">
-		  <?= $content; ?>
+      <div class="content-wrapper container">
+        <div class="page-heading">
+          <h3><?= $title ?></h3>
+        </div>
+        <?= $content; ?>
+      </div>
     </div>
 		<footer>
 			<div class="container">

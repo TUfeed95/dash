@@ -1,9 +1,9 @@
 <?php
 namespace Controllers;
+use Views\BaseView;
 use Controllers\Tool\Tool;
 use Exception;
 use Models\User\AuthenticationUser;
-use Core\View;
 use Views\User\UserView;
 
 
@@ -76,7 +76,7 @@ class AdminController extends BaseController
     $password = htmlspecialchars($_POST['password']);
 
     $userAuthentication = new AuthenticationUser();
-    $view = new View();
+    $view = new BaseView();
 
     $view->response($userAuthentication->authorization($login, $password)); // передаем ответ
   }
@@ -100,7 +100,7 @@ class AdminController extends BaseController
     $password = htmlspecialchars($_POST['password']);
 
 	  $userAuthentication = new AuthenticationUser();
-    $view = new View();
+    $view = new BaseView();
 
     $view->response($userAuthentication->registration($email, $login, $password));
   }

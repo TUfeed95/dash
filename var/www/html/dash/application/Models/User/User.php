@@ -174,4 +174,12 @@ class User
 		return $mapperUser->getById($_SESSION['user_id']);
 	}
 
+	/**
+	 * Наименование таблицы
+	 * @return string
+	 */
+	public static function getTableName(): string
+	{
+		return 'users';
+	}
 }

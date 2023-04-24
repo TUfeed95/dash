@@ -1,10 +1,10 @@
 <?php
 
-namespace Views\User;
+namespace Views\Project;
 
 use Views\BaseView;
 
-class UserView extends BaseView
+class ProjectView extends BaseView
 {
 	public function __construct($title, $template)
 	{

@@ -3,7 +3,7 @@ session_start();
 use Core\Router;
 
 spl_autoload_register(function ($className){
-	include dirname(__FILE__) . '/application/' . str_replace("\\", "/", $className) . '.php';
+	include __DIR__ . '/application/' . str_replace("\\", "/", $className) . '.php';
 });
 
 error_reporting(E_ALL);

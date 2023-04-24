@@ -1,11 +1,11 @@
 <?php
 namespace Controllers;
 
-use Core\View;
+use Views\BaseView;
+use Controllers\Tool\Tool;
 use Exception;
 use Models\User\DataMapperUser;
 use Models\User\User;
-use Controllers\Tool\Tool;
 use Views\User\UserView;
 
 
@@ -23,8 +23,7 @@ class UserController extends BaseController
 		$currentUser = (new User())->currentUser();
 
 		$userView = new UserView('Профиль пользователя', 'layout.php');
-		$basicInformationForm = $userView->renderContent('admin/user/basicInformationForm.php', ['currentUser' => $currentUser]);
-		$userView->renderContent('admin/user/profile.php', ['basicInformationForm' => $basicInformationForm]);
+		$userView->renderContent('admin/user/profile.php', ['currentUser' => $currentUser]);
 		$userView->render();
 	}
 
@@ -38,7 +37,7 @@ class UserController extends BaseController
 
 		$user = (new User())->currentUser();
 		$mapperUser = new DataMapperUser();
-		$view = new View();
+		$view = new BaseView();
 		$token = array_shift($_POST);
 
 		// проверка токена

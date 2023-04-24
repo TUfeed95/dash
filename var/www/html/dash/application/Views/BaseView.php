@@ -1,16 +1,15 @@
 <?php
 
-namespace Core;
+namespace Views;
 
 use Exception;
 use Models\User\User;
 
-class View
+class BaseView
 {
-
-	public $title;
-	public $content;
-	public $templateLayout;
+	protected $title;
+	protected $content;
+	protected $templateLayout;
 
 	/**
 	 * Ответ на запрос с js
@@ -37,7 +36,13 @@ class View
 		}
 	}
 
-	public function renderContent($template, $data=[])
+	/**
+	 * Рендеринг элемента на странице
+	 * @param $template
+	 * @param array $data
+	 * @return false|string
+	 */
+	public function renderContent($template, array $data=[]): bool|string
 	{
 		$templatePath = $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $template;
 
@@ -55,9 +60,10 @@ class View
 	}
 
 	/**
+	 * Рендеринг страницы
 	 * @throws Exception
 	 */
-	public function render()
+	public function render(): void
 	{
 		$templatePath = $_SERVER['DOCUMENT_ROOT'] . '/application/templates/' . $this->templateLayout;
 
